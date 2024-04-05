@@ -1,9 +1,9 @@
 {
-  "name": "startup-nextjs-template",
+  "name": "olympiad",
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3800",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

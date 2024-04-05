@@ -8,8 +8,8 @@ const corsOption = {
     'http://localhost:3000',
     'http://localhost:3001',
     'http://localhost:3002',
-    'http://localhost:3400',
-    'http://localhost:3500'
+    'http://localhost:3700',
+    'http://localhost:3800'
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
@@ -21,10 +21,10 @@ async function bookstore() {
   app.use(bodyParser.json({ limit: '50mb' })); // Set the limit according to your needs
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   const config = new DocumentBuilder()
-    .setTitle('LMS')
+    .setTitle('OLYMPIAD')
     .setDescription('Node JS + Nest JS + Mongoose + MongoDB')
     .setVersion('1.0.0')
-    .setContact('Email', 'mailto:rahathossenmanik@gmail.com', 'rahathossenmanik@gmail.com')
+    .setContact('Email', 'mailto:iqbalhossain1095@gmail.com', 'iqbalhossain1095@gmail.com')
     .setLicense('MIT', 'https://opensource.org/licenses/MIT')
     .build();
   const document = SwaggerModule.createDocument(app, config);

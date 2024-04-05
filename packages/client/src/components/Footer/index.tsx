@@ -5,18 +5,19 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <>
-      <footer className="relative z-10 bg-white pt-16 dark:bg-gray-dark md:pt-20 lg:pt-24">
+      <footer className="relative z-10 bg-white pt-4 dark:bg-gray-dark md:pt-8 lg:pt-8">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-5/12">
-              <div className="mb-12 max-w-[360px] lg:mb-16">
+              <div className="mb-4 max-w-[360px] lg:mb-4">
                 <Link href="/" className="mb-8 inline-block">
                   <Image
-                    src="/images/logo/logo-2.svg"
+                    src="/images/logo/logo.png"
                     alt="logo"
                     className="w-full dark:hidden"
                     width={140}
                     height={30}
+                    style={{height: 50}}
                   />
                   <Image
                     src="/images/logo/logo.svg"
@@ -27,8 +28,7 @@ const Footer = () => {
                   />
                 </Link>
                 <p className="mb-9 text-base leading-relaxed text-body-color dark:text-body-color-dark">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer lobortis.
+                English Olympiad is a great journey with the motto of “Inspiring Leadership”
                 </p>
                 <div className="flex items-center">
                   <a
@@ -110,7 +110,7 @@ const Footer = () => {
             </div>
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
-              <div className="mb-12 lg:mb-16">
+              <div className="mb-4 lg:mb-4">
                 <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
                   Useful Links
                 </h2>
@@ -144,7 +144,7 @@ const Footer = () => {
             </div>
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
-              <div className="mb-12 lg:mb-16">
+              <div className="mb-4 lg:mb-4">
                 <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
                   Terms
                 </h2>
@@ -178,7 +178,7 @@ const Footer = () => {
             </div>
 
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
-              <div className="mb-12 lg:mb-16">
+              <div className="mb-4 lg:mb-4">
                 <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
                   Support & Help
                 </h2>
@@ -213,25 +213,16 @@ const Footer = () => {
           </div>
 
           <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D2D8E183] to-transparent dark:via-[#959CB183]"></div>
-          <div className="py-8">
+          <div className="py-2">
             <p className="text-center text-base text-body-color dark:text-white">
               Template by{" "}
               <a
-                href="http://uideck.com"
+                href="http://e-babui.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary"
               >
-                UIdeck
-              </a>{" "}
-              and{" "}
-              <a
-                href="https://nextjstemplates.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary"
-              >
-                Next.js Templates
+                E-Babui
               </a>
             </p>
           </div>

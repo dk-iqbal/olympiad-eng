@@ -37,8 +37,8 @@ const Testimonials = () => {
     <section className="dark:bg-bg-color-dark bg-gray-light relative z-10 py-16 md:py-20 lg:py-28">
       <div className="container">
         <SectionTitle
-          title="What Our Users Says"
-          paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
+          title="What Our Students Says"
+          paragraph="We help our students to gain the knowledge, practical experience and skills they need to succeed in their careers"
           center
         />
 

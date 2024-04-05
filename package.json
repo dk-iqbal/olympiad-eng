@@ -1,11 +1,11 @@
 {
-  "name": "tech-pi-lms",
+  "name": "olympiad",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "pnpm clean:ports && pnpm run -r --stream --parallel dev",
-    "clean:ports": "pnpx kill-port 3400 3500 3000"
+    "clean:ports": "pnpx kill-port 3700 3800 4321"
   },
   "keywords": [],
   "author": "",

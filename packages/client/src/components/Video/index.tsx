@@ -10,11 +10,11 @@ const Video = () => {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <section className="relative z-10 py-16 md:py-20 lg:py-28">
+    <section className="relative z-10 py-8 md:py-8 lg:py-10">
       <div className="container">
         <SectionTitle
           title="We are ready to help"
-          paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
+          paragraph="We're dedicated to guiding students toward achieving their greatest successes. Our team is here, ready to provide support and assistance every step of the way."
           center
           mb="80px"
         />
@@ -54,7 +54,7 @@ const Video = () => {
         autoplay={true}
         start={true}
         isOpen={isOpen}
-        videoId="L61p2uyiMSo"
+        videoId="1dn6LOrVtdA"
         onClose={() => setOpen(false)}
       />
 

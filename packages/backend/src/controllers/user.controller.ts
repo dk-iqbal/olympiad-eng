@@ -5,7 +5,6 @@ import {
   Param, Post, Put, Query, Req
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { Mobile } from "aws-sdk";
 import { Request } from "express";
 import { User } from "src/schemas/user.schema";
 import { UserService } from "src/services/user.service";
