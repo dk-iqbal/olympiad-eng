@@ -4,7 +4,7 @@ import Carousel from "./hero";
 const Hero = () => {
   return (
     <>
-      <Carousel/>
+      <Carousel />
 
       <section
         id="home"
