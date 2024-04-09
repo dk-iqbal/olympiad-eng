@@ -61,15 +61,16 @@ const Header = () => {
                   width={140}
                   height={30}
                   style={{height: 50}}
-                  className="w-full dark:hidden"
+                  // className="w-full dark:hidden"
+                  className="w-full"
                 />
-                <Image
+                {/* <Image
                   src="/images/logo/logo.png"
                   alt="logo"
                   width={140}
                   height={30}
                   className="hidden w-full dark:block"
-                />
+                /> */}
               </Link>
             </div>
             <div className="flex w-full items-center justify-between px-4">

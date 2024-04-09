@@ -32,8 +32,8 @@ const menuData: Menu[] = [
       },
       {
         id: 48,
-        title: "Error Page",
-        path: "/error",
+        title: "Quiz Page",
+        path: "/olympiad/quiz",
         newTab: false,
       },
     ],

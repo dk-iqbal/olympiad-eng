@@ -40,88 +40,148 @@ const Carousel = () => {
     const thumbnailItems = [
         {
             imgSrc: '/images/hero/img1.jpg',
-            title: 'Name Slider',
-            description: 'Description',
+            title: 'Animal',
+            description: '',
         },
         {
             imgSrc: '/images/hero/img2.jpg',
-            title: 'Name Slider',
-            description: 'Description',
+            title: 'Animal',
+            description: '',
         },
         {
             imgSrc: '/images/hero/img3.jpg',
-            title: 'Name Slider',
-            description: 'Description',
+            title: 'Animal',
+            description: '',
         },
         {
             imgSrc: '/images/hero/img4.jpg',
-            title: 'Name Slider',
-            description: 'Description',
+            title: 'Animal',
+            description: '',
         },
-        // Add more thumbnail items here as needed
     ];
 
-    useEffect(() => {
-        let nextDom, prevDom, carouselDom, SliderDom, thumbnailBorderDom, thumbnailItemsDom, timeDom;
-        let timeRunning, timeAutoNext, SliderItemsDom, runNextAuto;
-        const script = document.createElement('script');
-        script.innerHTML = `
-          nextDom = document.getElementById('next');
-          prevDom = document.getElementById('prev');
-          carouselDom = document.querySelector('.carousel');
-          SliderDom = carouselDom.querySelector('.carousel .list');
-          thumbnailBorderDom = document.querySelector('.carousel .thumbnail');
-          thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
-          timeDom = document.querySelector('.carousel .time');
+    // useEffect(() => {
+    //     let nextDom, prevDom, carouselDom, SliderDom, thumbnailBorderDom, thumbnailItemsDom, timeDom;
+    //     let timeRunning, timeAutoNext, SliderItemsDom, runNextAuto;
+    //     const script = document.createElement('script');
+    //     script.innerHTML = `
+    //       nextDom = document.getElementById('next');
+    //       prevDom = document.getElementById('prev');
+    //       carouselDom = document.querySelector('.carousel');
+    //       SliderDom = carouselDom.querySelector('.carousel .list');
+    //       thumbnailBorderDom = document.querySelector('.carousel .thumbnail');
+    //       thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
+    //       timeDom = document.querySelector('.carousel .time');
       
-          thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
-          timeRunning = 1000;
-          timeAutoNext = 5000;
+    //       thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+    //       timeRunning = 1000;
+    //       timeAutoNext = 5000;
       
-          nextDom.onclick = function(){
-            showSlider('next');    
-          }
+    //       nextDom.onclick = function(){
+    //         showSlider('next');    
+    //       }
       
-          prevDom.onclick = function(){
-            showSlider('prev');    
-          }
+    //       prevDom.onclick = function(){
+    //         showSlider('prev');    
+    //       }
           
+    //       runNextAuto = setTimeout(() => {
+    //         nextDom.click();
+    //       }, timeAutoNext)
+    //       function showSlider(type){
+    //         SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');
+    //        let thumbnailItemsDom = document.querySelectorAll('.carousel .thumbnail .item');
+      
+    //         if(type === 'next'){
+    //           SliderDom.appendChild(SliderItemsDom[0]);
+    //           thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+    //           carouselDom.classList.add('next');
+    //         }else{
+    //           SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
+    //           thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]);
+    //           carouselDom.classList.add('prev');
+    //         }
+    //         let runTimeOut;
+    //         clearTimeout(runTimeOut);
+    //         runTimeOut = setTimeout(() => {
+    //           carouselDom.classList.remove('next');
+    //           carouselDom.classList.remove('prev');
+    //         }, timeRunning);
+      
+    //         clearTimeout(runNextAuto);
+    //         runNextAuto = setTimeout(() => {
+    //           nextDom.click();
+    //         }, timeAutoNext)
+    //       }
+    //     `;
+    //     document.body.appendChild(script);
+      
+    //     return () => {
+    //       document.body.removeChild(script);
+    //     };
+    //   }, []);
+
+    useEffect(() => {
+      let nextDom, prevDom, carouselDom, SliderDom, thumbnailBorderDom, timeDom;
+      let timeRunning, timeAutoNext, SliderItemsDom, runNextAuto;
+      const script = document.createElement('script');
+      script.innerHTML = `
+        nextDom = document.getElementById('next');
+        prevDom = document.getElementById('prev');
+        carouselDom = document.querySelector('.carousel');
+        SliderDom = carouselDom.querySelector('.carousel .list');
+        thumbnailBorderDom = document.querySelector('.carousel .thumbnail');
+        timeDom = document.querySelector('.carousel .time');
+    
+        timeRunning = 1000;
+        timeAutoNext = 5000;
+    
+        nextDom.onclick = function(){
+          showSlider('next');    
+        }
+    
+        prevDom.onclick = function(){
+          showSlider('prev');    
+        }
+        
+        runNextAuto = setTimeout(() => {
+          nextDom.click();
+        }, timeAutoNext)
+        function showSlider(type){
+          SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');
+          let thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
+    
+          if (SliderItemsDom.length === 0 || thumbnailItemsDom.length === 0) return; // Add a check here to ensure the elements exist
+    
+          if(type === 'next'){
+            SliderDom.appendChild(SliderItemsDom[0]);
+            thumbnailBorderDom.appendChild(thumbnailItemsDom[0].cloneNode(true)); // Append a cloneNode
+            carouselDom.classList.add('next');
+          }else{
+            SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
+            thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1].cloneNode(true)); // Append a cloneNode
+            carouselDom.classList.add('prev');
+          }
+          let runTimeOut;
+          clearTimeout(runTimeOut);
+          runTimeOut = setTimeout(() => {
+            carouselDom.classList.remove('next');
+            carouselDom.classList.remove('prev');
+          }, timeRunning);
+    
+          clearTimeout(runNextAuto);
           runNextAuto = setTimeout(() => {
             nextDom.click();
           }, timeAutoNext)
-          function showSlider(type){
-            SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');
-           let thumbnailItemsDom = document.querySelectorAll('.carousel .thumbnail .item');
-      
-            if(type === 'next'){
-              SliderDom.appendChild(SliderItemsDom[0]);
-              thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
-              carouselDom.classList.add('next');
-            }else{
-              SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
-              thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]);
-              carouselDom.classList.add('prev');
-            }
-            let runTimeOut;
-            clearTimeout(runTimeOut);
-            runTimeOut = setTimeout(() => {
-              carouselDom.classList.remove('next');
-              carouselDom.classList.remove('prev');
-            }, timeRunning);
-      
-            clearTimeout(runNextAuto);
-            runNextAuto = setTimeout(() => {
-              nextDom.click();
-            }, timeAutoNext)
-          }
-        `;
-        document.body.appendChild(script);
-      
-        return () => {
-          document.body.removeChild(script);
-        };
-      }, []);
-
+        }
+      `;
+      document.body.appendChild(script);
+    
+      return () => {
+        document.body.removeChild(script);
+      };
+    }, []);
+  
     return (
         <div className="carousel">
             <div className="list">

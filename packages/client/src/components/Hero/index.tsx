@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Carousel from "./hero";
+import './style.css';
 
 const Hero = () => {
   return (
@@ -8,7 +9,8 @@ const Hero = () => {
 
       <section
         id="home"
-        className="relative z-10 overflow-hidden bg-white pb-16 pt-[120px] dark:bg-gray-dark md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+        className="relative z-10 overflow-hidden bg-white pb-16 pt-[80px] dark:bg-gray-dark"
+      // className="relative z-10 overflow-hidden bg-white pb-16 pt-[120px] dark:bg-gray-dark md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
@@ -16,11 +18,23 @@ const Hero = () => {
               <div className="mx-auto max-w-[800px] text-center">
                 <h1 className="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
                   ENGLISH OLYMPIAD
-                  <p>Inspiring Leadership</p>
+                  <p className="pt-10 text-3xl text-red-500">{"Registration Deadline 12th May 2024 !!"}</p>
                 </h1>
-                <p className="mb-4 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
-                  English Olympiad is a great journey with the motto of “Inspiring Leadership”. We are trademarked and we have Patents & Copyright as Intellectual Property. A global platform where many students are participating as competitors.
-                </p>
+                <Link href="/olympiad/registration">
+                  <div className="flip-card">
+                    <div className="flip-card-inner">
+                      <div className="flip-card-front">
+                        <p className="title">REGISTRATION</p>
+                        <p>Now</p>
+                      </div>
+                      <div className="flip-card-back">
+                        <p className="title">REGISTRATION</p>
+                        <p>Now</p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+
               </div>
             </div>
           </div>

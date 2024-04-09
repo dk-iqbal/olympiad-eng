@@ -1,6 +1,7 @@
 import SectionTitle from "../Common/SectionTitle";
 import SingleFeature from "./SingleFeature";
 import featuresData from "./featuresData";
+import Image from 'next/image';
 
 const Features = () => {
   return (
@@ -97,6 +98,96 @@ const Features = () => {
               </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      <section className="dark:bg-bg-color-dark bg-gray-light py-10 md:py-[5.5rem]">
+        <div className="container mx-auto px-5 xl:max-w-7xl">
+          <h3
+            className="mb-10 md:mb-16 text-title01 leading-[150%] font-bangla text-center   font-semibold text-[24px]   md:font-semibold  md:text-[36px]   ">
+            কীভাবে কুইজে জয়েন করবে?</h3>
+          <div className="mb-4  flex flex-wrap md:mb-16">
+            <div className="relative flex w-full md:w-1/4 md:justify-center">
+              <div className="z-10 inline-flex flex-wrap items-center md:justify-center">
+                <div className="mb-8 mr-5 flex h-12 w-12 items-center justify-center rounded-xl md:mb-6 md:mr-0 md:h-20 md:w-20 md:rounded-2xl bg-orange-100 bg-clip-border">
+                  <picture>
+                    <img
+                      src="https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/v1691323112/Shikho%20Website%20V3/National%20Quiz%20Homepage/Updated%20Icons/Frame_514631223_eouzb6.svg"
+                      alt="রেজিস্ট্রেশন করো" className="w-10 md:w-[3.75rem]" />
+                  </picture>
+                </div>
+                <p
+                  className="mb-8 md:mb-0 md:w-full md:text-center text-body01 leading-[150%] font-bangla   font-medium text-[14px]   md:font-medium  md:text-[16px] ">
+                  রেজিস্ট্রেশন করো</p>
+              </div>
+            </div>
+            <div className="relative flex w-full md:w-1/4 md:justify-center">
+              <span
+                className="absolute -top-1/2 left-6 z-0 h-full border-r-2 border-dashed border-mediumLight md:left-[unset] md:right-1/2 md:top-10 md:h-auto md:w-full md:border-b-2 md:border-r-0"></span><span
+                  className="absolute right-full top-10 hidden h-8 w-8 -translate-y-1/2 translate-x-1/2 transform items-center justify-center rounded-lg bg-light md:flex"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                  <path fill="currentColor"
+                    d="m7.5 13.23 3.233-3.234L7.5 6.763a.83.83 0 1 1 1.175-1.175L12.5 9.413a.83.83 0 0 1 0 1.175l-3.825 3.825a.83.83 0 0 1-1.175 0 .848.848 0 0 1 0-1.184Z">
+                  </path>
+                </svg>
+              </span>
+              <div className="z-10 inline-flex flex-wrap items-center md:justify-center">
+                <div className="mb-8 mr-5 flex h-12 w-12 items-center justify-center rounded-xl md:mb-6 md:mr-0 md:h-20 md:w-20 md:rounded-2xl bg-blue-100">
+                  <picture>
+                    <img
+                      src="https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/v1691323112/Shikho%20Website%20V3/National%20Quiz%20Homepage/Updated%20Icons/Profile2_to82hg.svg"
+                      alt="প্রোফাইল কমপ্লিট করো" className="w-10 md:w-[3.75rem]" />
+                  </picture>
+                </div>
+                <p
+                  className="mb-8 md:mb-0 md:w-full md:text-center text-body01 leading-[150%] font-bangla   font-medium text-[14px]   md:font-medium  md:text-[16px] ">
+                  প্রোফাইল কমপ্লিট করো</p>
+              </div>
+            </div>
+            <div className="relative flex w-full md:w-1/4 md:justify-center"><span
+              className="absolute -top-1/2 left-6 z-0 h-full border-r-2 border-dashed border-mediumLight md:left-[unset] md:right-1/2 md:top-10 md:h-auto md:w-full md:border-b-2 md:border-r-0"></span><span
+                className="absolute right-full top-10 hidden h-8 w-8 -translate-y-1/2 translate-x-1/2 transform items-center justify-center rounded-lg bg-light md:flex"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                  <path fill="currentColor"
+                    d="m7.5 13.23 3.233-3.234L7.5 6.763a.83.83 0 1 1 1.175-1.175L12.5 9.413a.83.83 0 0 1 0 1.175l-3.825 3.825a.83.83 0 0 1-1.175 0 .848.848 0 0 1 0-1.184Z">
+                  </path>
+                </svg></span>
+              <div className="z-10 inline-flex flex-wrap items-center md:justify-center">
+                <div className="bg-green-200 mb-8 mr-5 flex h-12 w-12 items-center justify-center rounded-xl md:mb-6 md:mr-0 md:h-20 md:w-20 md:rounded-2xl"
+                >
+                  <picture>
+                    <img
+                      src="https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/v1691323112/Shikho%20Website%20V3/National%20Quiz%20Homepage/Updated%20Icons/animated_video_pdpofk.svg"
+                      alt="ফ্রি কনটেন্ট দেখে কুইজের প্রস্তুতি নাও" className="w-10 md:w-[3.75rem]" />
+                  </picture>
+                </div>
+                <p
+                  className="mb-8 md:mb-0 md:w-full md:text-center text-body01 leading-[150%] font-bangla   font-medium text-[14px]   md:font-medium  md:text-[16px] ">
+                  ফ্রি কনটেন্ট দেখে কুইজের প্রস্তুতি নাও</p>
+              </div>
+            </div>
+            <div className="relative flex w-full md:w-1/4 md:justify-center"><span
+              className="absolute -top-1/2 left-6 z-0 h-full border-r-2 border-dashed border-mediumLight md:left-[unset] md:right-1/2 md:top-10 md:h-auto md:w-full md:border-b-2 md:border-r-0"></span><span
+                className="absolute right-full top-10 hidden h-8 w-8 -translate-y-1/2 translate-x-1/2 transform items-center justify-center rounded-lg bg-light md:flex"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                  <path fill="currentColor"
+                    d="m7.5 13.23 3.233-3.234L7.5 6.763a.83.83 0 1 1 1.175-1.175L12.5 9.413a.83.83 0 0 1 0 1.175l-3.825 3.825a.83.83 0 0 1-1.175 0 .848.848 0 0 1 0-1.184Z">
+                  </path>
+                </svg></span>
+              <div className="z-10 inline-flex flex-wrap items-center md:justify-center">
+                <div className="bg-blue-200 mb-8 mr-5 flex h-12 w-12 items-center justify-center rounded-xl md:mb-6 md:mr-0 md:h-20 md:w-20 md:rounded-2xl">
+                  <picture>
+                    <img
+                      src="https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/v1691323112/Shikho%20Website%20V3/National%20Quiz%20Homepage/Updated%20Icons/3_ch4gl0.svg"
+                      alt="নির্ধারিত সময়ে কুইজ  শুরু করো" className="w-10 md:w-[3.75rem]" />
+                  </picture>
+                </div>
+                <p
+                  className="mb-8 md:mb-0 md:w-full md:text-center text-body01 leading-[150%] font-bangla   font-medium text-[14px]   md:font-medium  md:text-[16px] ">
+                  নির্ধারিত সময়ে কুইজ শুরু করো</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

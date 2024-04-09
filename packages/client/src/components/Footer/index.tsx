@@ -5,7 +5,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <>
-      <footer className="relative z-10 bg-white pt-4 dark:bg-gray-dark md:pt-8 lg:pt-8">
+      <footer className="z-1 w-full z-10 bg-white pt-4 dark:bg-gray-dark md:pt-8 lg:pt-8">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-5/12">
@@ -14,18 +14,19 @@ const Footer = () => {
                   <Image
                     src="/images/logo/logo.png"
                     alt="logo"
-                    className="w-full dark:hidden"
+                    // className="w-full dark:hidden"
+                    className="w-full"
                     width={140}
                     height={30}
                     style={{height: 50}}
                   />
-                  <Image
+                  {/* <Image
                     src="/images/logo/logo.png"
                     alt="logo"
                     className="hidden w-full dark:block"
                     width={140}
                     height={30}
-                  />
+                  /> */}
                 </Link>
                 <p className="mb-9 text-base leading-relaxed text-body-color dark:text-body-color-dark">
                 English Olympiad is a great journey with the motto of “Inspiring Leadership”
@@ -227,7 +228,7 @@ const Footer = () => {
             </p>
           </div>
         </div>
-        <div className="absolute right-0 top-14 z-[-1]">
+        {/* <div className="absolute right-0 top-14 z-[-1]">
           <svg
             width="55"
             height="99"
@@ -416,7 +417,7 @@ const Footer = () => {
               </linearGradient>
             </defs>
           </svg>
-        </div>
+        </div> */}
       </footer>
     </>
   );
