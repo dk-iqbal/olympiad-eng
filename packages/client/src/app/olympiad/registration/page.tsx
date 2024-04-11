@@ -14,8 +14,8 @@ const OlympiadRegistration = () => {
                             <div className="relative pl-16">
                                 <dt className="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
                                     <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                                        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                                        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
                                         </svg>
                                     </div>
                                     Dashboard
@@ -25,8 +25,8 @@ const OlympiadRegistration = () => {
                             <div className="relative pl-16">
                                 <dt className="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
                                     <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                                        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                                        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                                         </svg>
                                     </div>
                                     Certificates
@@ -37,7 +37,7 @@ const OlympiadRegistration = () => {
                     </div>
                 </div>
 
-                <div className="container mt-10 p-2 mx-auto sm:p-4 dark:text-gray-800 max-w-[800px]">
+                <div className="container mt-10 p-2 mx-auto sm:p-4 dark:text-gray-800 max-w-[900px]">
                     <h2 className="mb-4 text-2xl font-semibold leading-tight text-center gext-gray-800 dark:text-gray-100">Exam Schedule</h2>
                     <div className="overflow-x-auto">
                         <table className="min-w-full text-sm">
@@ -148,8 +148,8 @@ const OlympiadRegistration = () => {
                     </div>
                 </div>
 
-                <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8 max-w-[800px]">
-                    <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
+                <div className="-my-2 py-2 m-auto overflow-x-auto max-w-[800px]">
+                    <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white dark:bg-gray-800 shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg border-2 dark:border-gray-200">
                         <h2 className="mb-4 text-2xl font-semibold leading-tight text-center gext-gray-800 dark:text-gray-100">Syllabus & Marking Scheme (Online Examination)</h2>
                         <table className="min-w-full">
                             <thead>
@@ -160,8 +160,8 @@ const OlympiadRegistration = () => {
                                     <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">TOTAL MARKS</th>
                                 </tr>
                             </thead>
-                            <tbody className="bg-white">
-                                <tr>
+                            <tbody>
+                                <tr className='text-gray-800 dark:text-gray-100'>
                                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                                         <div className="text-sm leading-5 text-blue-900">Word & Structure Knowledge	</div>
                                     </td>

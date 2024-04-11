@@ -14,10 +14,9 @@ const SigninPage = () => {
   const [formState, action] = useFormState(actions.credentialsSignIn, {
     errors: {},
   });
-  
-  const session =  useSession();
-  console.log(session)
-  
+
+  const session = useSession();
+
   if (session?.data?.user) {
     redirect('/')
   }
@@ -38,11 +37,7 @@ const SigninPage = () => {
                   </p>
                   <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
                 </div>
-                {/* {formState.errors._form ? (
-                  <div className="rounded p-2 bg-red-200 border border-red-400">
-                    {formState.errors._form?.join(", ")}
-                  </div>
-                ) : null} */}
+
                 <form action={action}>
                   <div className="mb-4">
                     <label
@@ -72,6 +67,11 @@ const SigninPage = () => {
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                     />
                   </div>
+                  {formState.errors._form ? (
+                    <div className="rounded p-2 bg-red-200 border border-red-400">
+                      {formState.errors._form?.join(", ")}
+                    </div>
+                  ) : null}
                   <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center">
                     <div className="mb-4 sm:mb-0">
                       <label
@@ -123,9 +123,9 @@ const SigninPage = () => {
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
                   Don’t you have an account?{" "}
-                  {/* <Link href="/signup" className="text-primary hover:underline">
+                  <Link href="/signup" className="text-primary hover:underline">
                     Sign up
-                  </Link> */}
+                  </Link>
                 </p>
               </div>
             </div>
