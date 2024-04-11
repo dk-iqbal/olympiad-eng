@@ -3,6 +3,7 @@
 import * as auth from "@/auth";
 import { USER_API } from "@/services/api-end-point/user";
 import clientAxios from "@/services/config";
+import axios from "axios";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -10,7 +11,7 @@ const createUserSchema = z.object({
   name: z.string().min(3),
   email: z.string().email(),
   phone: z.string().min(11).max(14),
-  password: z.string().min(8)
+  password: z.string().min(8),
 });
 
 interface CreateUserFormState {
@@ -29,7 +30,7 @@ export async function signIn() {
 
 export async function credentialsSignIn(
   formState: CreateUserFormState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateUserFormState> {
   const email = formData?.get("email") as string;
   const password = formData?.get("password") as string;
@@ -37,25 +38,30 @@ export async function credentialsSignIn(
     email,
     password
   };
-  return clientAxios.post("http://localhost:4321/users/login", requestBody).then(res => {
-    if (!(res as any).data?.user) {
-      return {
-        errors: {
-          _form: ["Invalid Credentials"],
-        },
-      };
-    }
-    const user = (res as any)?.data;
-    const data = {
-      accessToken: user.accessToken,
-      name: user.user.name,
-      email: user.user.email,
-      id: user.user._id,
-      image: user.user.image,
-    }
-    auth.signIn("credentials", data);
+  const authResponse = await fetch("http://localhost:4321/users/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
   });
+  if (!authResponse.ok) {
+    return {
+      errors: {
+        _form: ["Invalid Credentials"],
+      },
+    };
+  }
+  const user = await authResponse.json();
+  const data = {
+    accessToken: user.accessToken,
+    name: user.user.name,
+    email: user.user.email,
+    id: user.user._id,
+    image: user.user.image,
+  };
 
+  return auth.signIn("credentials", data);
 }
 
 
@@ -76,6 +82,15 @@ export async function credentialsSignUp(
       errors: (result as any).error.flatten().fieldErrors,
     };
   }
+
+  console.log(JSON.stringify({
+    name: result.data.name,
+    username: result.data.email,
+    email: result.data.email,
+    phone: result.data.phone,
+    password: result.data.password,
+    role,
+  }, null, 2))
 
   try {
     await clientAxios.post(`${USER_API.user_sign_in}`, {
@@ -102,5 +117,4 @@ export async function credentialsSignUp(
     }
   }
   redirect("/login");
-  // return auth.signIn("credentials", { name, email, phone, password, role });
 }

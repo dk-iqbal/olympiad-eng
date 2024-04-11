@@ -15,20 +15,9 @@ const SigninPage = () => {
     errors: {},
   });
   
-  useEffect(() => {
-    const getAuth = async () => {
-      const session = await auth();
-      console.log(session)
-      if (session) {
-        redirect('/')
-      }
-    }
-    getAuth()
-  }, [])
   const session =  useSession();
   console.log(session)
-  // const userData = localStorage.getItem('userData');
-  // const session = JSON.parse(userData)
+  
   if (session?.data?.user) {
     redirect('/')
   }
