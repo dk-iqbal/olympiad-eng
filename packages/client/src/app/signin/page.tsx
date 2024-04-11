@@ -1,17 +1,40 @@
+/* eslint-disable @next/next/no-img-element */
+'use client'
+
+import * as actions from "@/actions";
+import { auth } from "@/auth";
+import { useFormState } from "react-dom";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import Link from "next/link";
-
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Sign In Page",
-  description: "This is Sign In Page",
-  // other metadata
-};
+import { useEffect } from "react";
 
 const SigninPage = () => {
+
+  const [formState, action] = useFormState(actions.credentialsSignIn, {
+    errors: {},
+  });
+  
+  useEffect(() => {
+    const getAuth = async () => {
+      const session = await auth();
+      console.log(session)
+      if (session) {
+        redirect('/')
+      }
+    }
+    getAuth()
+  }, [])
+  const session =  useSession();
+  console.log(session)
+  // const userData = localStorage.getItem('userData');
+  // const session = JSON.parse(userData)
+  if (session?.data?.user) {
+    redirect('/')
+  }
   return (
     <>
-      <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
+      <section className="relative z-10 overflow-hidden pb-16 pt-12 md:pb-20 lg:pb-28 lg:pt-[60px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
@@ -19,9 +42,6 @@ const SigninPage = () => {
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
                   Sign in to your account
                 </h3>
-                <p className="mb-11 text-center text-base font-medium text-body-color">
-                  Login to your account for a faster checkout.
-                </p>
                 <div className="mb-8 flex items-center justify-center">
                   <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
                   <p className="w-full px-5 text-center text-base font-medium text-body-color">
@@ -29,8 +49,13 @@ const SigninPage = () => {
                   </p>
                   <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
                 </div>
-                <form>
-                  <div className="mb-8">
+                {/* {formState.errors._form ? (
+                  <div className="rounded p-2 bg-red-200 border border-red-400">
+                    {formState.errors._form?.join(", ")}
+                  </div>
+                ) : null} */}
+                <form action={action}>
+                  <div className="mb-4">
                     <label
                       htmlFor="email"
                       className="mb-3 block text-sm text-dark dark:text-white"
@@ -44,7 +69,7 @@ const SigninPage = () => {
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                     />
                   </div>
-                  <div className="mb-8">
+                  <div className="mb-4">
                     <label
                       htmlFor="password"
                       className="mb-3 block text-sm text-dark dark:text-white"
@@ -109,9 +134,9 @@ const SigninPage = () => {
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
                   Don’t you have an account?{" "}
-                  <Link href="/signup" className="text-primary hover:underline">
+                  {/* <Link href="/signup" className="text-primary hover:underline">
                     Sign up
-                  </Link>
+                  </Link> */}
                 </p>
               </div>
             </div>

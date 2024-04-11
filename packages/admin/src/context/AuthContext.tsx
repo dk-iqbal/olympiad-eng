@@ -38,7 +38,7 @@ const AuthProvider = ({ children }: Props) => {
         const userData = localStorage?.getItem('userData') || ''
         const parseUserData = JSON.parse(userData)
         await axios
-          .get(`http://localhost:6543/users/get-me?id=${parseUserData.id}`, {
+          .get(`http://localhost:4321/users/get-me?id=${parseUserData.id}`, {
             headers: {
               Authorization: `Bearer ${storedToken}`
             }
@@ -90,7 +90,7 @@ const AuthProvider = ({ children }: Props) => {
 
   const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
     axios
-      .post('http://localhost:6543/users/login', params)
+      .post('http://localhost:4321/users/login', params)
       .then(async response => {
         params.rememberMe
           ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)

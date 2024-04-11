@@ -72,7 +72,7 @@ const AboutSectionOne = () => {
         </div>
       </section>
       <h1
-        className="p-3 mb-8 text-center font-extrabold text-transparent text-5xl text-gray-800 dark:text-gray-100"
+        className="p-3 mb-8 text-center font-extrabold text-5xl text-gray-800 dark:text-gray-100"
       >
         Win Exciting Prizes
       </h1>
