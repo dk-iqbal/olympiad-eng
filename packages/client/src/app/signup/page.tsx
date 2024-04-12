@@ -1,17 +1,15 @@
+'use client'
 import Link from "next/link";
-
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Sign Up Page | Free Next.js Template for Startup and SaaS",
-  description: "This is Sign Up Page for Startup Nextjs Template",
-  // other metadata
-};
+import * as actions from "@/actions";
+import { useFormState } from "react-dom";
 
 const SignupPage = () => {
+  const [formState, action] = useFormState(actions.credentialsSignUp, {
+    errors: {},
+  });
   return (
     <>
-      <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
+      <section className="relative z-10 overflow-hidden pb-16 pt-20 md:pb-20 lg:pb-28 lg:pt-[60px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
@@ -73,15 +71,8 @@ const SignupPage = () => {
                   </span>
                   Sign in with Github
                 </button> */}
-                <div className="mb-8 flex items-center justify-center">
-                  <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color/50 sm:block"></span>
-                  <p className="w-full px-5 text-center text-base font-medium text-body-color">
-                    register with your email
-                  </p>
-                  <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color/50 sm:block"></span>
-                </div>
-                <form>
-                  <div className="mb-8">
+                <form action={action}>
+                  <div className="mb-4">
                     <label
                       htmlFor="name"
                       className="mb-3 block text-sm text-dark dark:text-white"
@@ -95,8 +86,25 @@ const SignupPage = () => {
                       placeholder="Enter your full name"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                     />
+                    {formState.errors.name && (
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="15px"
+                            height="15px"
+                          >
+                            <path d="M 4.9902344 3.9902344 A 1.0001 1.0001 0 0 0 4.2929688 5.7070312 L 10.585938 12 L 4.2929688 18.292969 A 1.0001 1.0001 0 1 0 5.7070312 19.707031 L 12 13.414062 L 18.292969 19.707031 A 1.0001 1.0001 0 1 0 19.707031 18.292969 L 13.414062 12 L 19.707031 5.7070312 A 1.0001 1.0001 0 0 0 18.980469 3.9902344 A 1.0001 1.0001 0 0 0 18.292969 4.2929688 L 12 10.585938 L 5.7070312 4.2929688 A 1.0001 1.0001 0 0 0 4.9902344 3.9902344 z" />
+                          </svg>
+                        </span>
+                        <span className="text-sm font-roboto font-light  text-opacity-80 text-red-500">
+                          {formState.errors.name?.join(", ")}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                  <div className="mb-8">
+                  <div className="mb-4">
                     <label
                       htmlFor="mobile"
                       className="mb-3 block text-sm text-dark dark:text-white"
@@ -110,8 +118,25 @@ const SignupPage = () => {
                       placeholder="Enter your Phone"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                     />
+                    {formState.errors.name && (
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="15px"
+                            height="15px"
+                          >
+                            <path d="M 4.9902344 3.9902344 A 1.0001 1.0001 0 0 0 4.2929688 5.7070312 L 10.585938 12 L 4.2929688 18.292969 A 1.0001 1.0001 0 1 0 5.7070312 19.707031 L 12 13.414062 L 18.292969 19.707031 A 1.0001 1.0001 0 1 0 19.707031 18.292969 L 13.414062 12 L 19.707031 5.7070312 A 1.0001 1.0001 0 0 0 18.980469 3.9902344 A 1.0001 1.0001 0 0 0 18.292969 4.2929688 L 12 10.585938 L 5.7070312 4.2929688 A 1.0001 1.0001 0 0 0 4.9902344 3.9902344 z" />
+                          </svg>
+                        </span>
+                        <span className="text-sm font-roboto font-light  text-opacity-80 text-red-500">
+                          {formState.errors.phone?.join(", ")}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                  <div className="mb-8">
+                  <div className="mb-4">
                     <label
                       htmlFor="email"
                       className="mb-3 block text-sm text-dark dark:text-white"
@@ -125,8 +150,25 @@ const SignupPage = () => {
                       placeholder="Enter your Email"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                     />
+                    {formState.errors.name && (
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="15px"
+                            height="15px"
+                          >
+                            <path d="M 4.9902344 3.9902344 A 1.0001 1.0001 0 0 0 4.2929688 5.7070312 L 10.585938 12 L 4.2929688 18.292969 A 1.0001 1.0001 0 1 0 5.7070312 19.707031 L 12 13.414062 L 18.292969 19.707031 A 1.0001 1.0001 0 1 0 19.707031 18.292969 L 13.414062 12 L 19.707031 5.7070312 A 1.0001 1.0001 0 0 0 18.980469 3.9902344 A 1.0001 1.0001 0 0 0 18.292969 4.2929688 L 12 10.585938 L 5.7070312 4.2929688 A 1.0001 1.0001 0 0 0 4.9902344 3.9902344 z" />
+                          </svg>
+                        </span>
+                        <span className="text-sm font-roboto font-light  text-opacity-80 text-red-500">
+                          {formState.errors.email?.join(", ")}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                  <div className="mb-8">
+                  <div className="mb-4">
                     <label
                       htmlFor="password"
                       className="mb-3 block text-sm text-dark dark:text-white"
@@ -140,6 +182,23 @@ const SignupPage = () => {
                       placeholder="Enter your Password"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                     />
+                    {formState.errors.name && (
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="15px"
+                            height="15px"
+                          >
+                            <path d="M 4.9902344 3.9902344 A 1.0001 1.0001 0 0 0 4.2929688 5.7070312 L 10.585938 12 L 4.2929688 18.292969 A 1.0001 1.0001 0 1 0 5.7070312 19.707031 L 12 13.414062 L 18.292969 19.707031 A 1.0001 1.0001 0 1 0 19.707031 18.292969 L 13.414062 12 L 19.707031 5.7070312 A 1.0001 1.0001 0 0 0 18.980469 3.9902344 A 1.0001 1.0001 0 0 0 18.292969 4.2929688 L 12 10.585938 L 5.7070312 4.2929688 A 1.0001 1.0001 0 0 0 4.9902344 3.9902344 z" />
+                          </svg>
+                        </span>
+                        <span className="text-sm font-roboto font-light  text-opacity-80 text-red-500">
+                          {formState.errors.password?.join(", ")}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="mb-8 flex">
                     <label

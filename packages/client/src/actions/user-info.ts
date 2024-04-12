@@ -18,12 +18,13 @@ export async function fetchAuthUser() {
   const session = (await auth()) as SessionProps;
 
   if (!session?.user) {
-    redirect("/login");
+    redirect("/signin");
   }
   try {
     const res = await clientAxios.get(
       `${USER_API.fetch_user_by_id(session?.user?.id)}`
     );
+    console.log(res.data);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -34,7 +35,7 @@ export async function fetchUserEnrollment() {
   const session = (await auth()) as SessionProps;
 
   if (!session?.user) {
-    redirect("/login");
+    redirect("/signin");
   }
   try {
     const res = await clientAxios.get(
@@ -50,7 +51,7 @@ export async function fetchUserPayment() {
   const session = (await auth()) as SessionProps;
 
   if (!session?.user) {
-    redirect("/login");
+    redirect("/signin");
   }
   try {
     const res = await clientAxios.get(

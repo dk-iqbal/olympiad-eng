@@ -175,84 +175,15 @@ const Header = () => {
                   </ul>
                 </nav>
               </div>
-              {/* <div className="flex items-center justify-end pr-16 lg:pr-0">
-                {
-                  auth ? (
-                    <div className="relative">
-                      <Image
-                        // src={session?.data?.user?.image || avator}
-                        src={'/images/own/profile.png'}
-                        alt="Profile"
-                        className="w-8 h-8 rounded-full cursor-pointer"
-                        width={35}
-                        height={35}
-                        onClick={() => {
-                          handleImageClick();
-                        }}
-                      />
-                      {
-                        <div className={`submenu relative left-0 top-full rounded-sm bg-white transition-[top] duration-300 group-hover:opacity-100 dark:bg-dark lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full`}>
-                          <ul className="py-2">
-                            <li>
-                              <Link
-                                href="/profile"
-                                className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                              >
-                                Dashboard
-                              </Link>
-                            </li>
-                            <li>
-                              <button
-                                onClick={handleSignOut}
-                                className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left"
-                              >
-                                Sign Out 
-                              </button>
-                            </li>
-                          </ul>
-
-                        </div>
-                        // <div className="absolute right-0 mt-0 w-48 bg-white border rounded-lg shadow-lg invisible group-hover/auth:visible">
-                        //   <ul className="py-2">
-                        //     <li>
-                        //       <Link
-                        //         href="/profile"
-                        //         className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                        //       >
-                        //         Dashboard
-                        //       </Link>
-                        //     </li>
-                        //     <li>
-                        //       <button
-                        //         onClick={handleSignOut}
-                        //         className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left"
-                        //       >
-                        //         Sign Out
-                        //       </button>
-                        //     </li>
-                        //   </ul>
-                        // </div>
-                      }
-
-                    </div>
-                  ) : <Link
-                    href="/signin"
-                    className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-primary px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
-                  >
-                    Sign In
-                  </Link>
-                }
-
-                <div>
+              <div className="flex items-center justify-end pr-16 lg:pr-0">
+                <div className="mr-2">
                   <ThemeToggler />
                 </div>
-              </div> */}
-              <div className="flex items-center justify-end pr-16 lg:pr-0">
                 <div className="flex items-center justify-end dark:text-white dark:bg-gray-900 dark:border-gray-700 z-50 sticky top-0 border-b-2 border-[rgba(248,250,252,.08)] group/auth">
-                  {session?.data?.user ? (
+                  {auth ? (
                     <div className="relative">
                       <Image
-                        src={'/images/own/profile.png'}
+                        src={auth?.image || '/images/own/profile.png'}
                         alt="Profile"
                         width={35}
                         height={35}
@@ -261,6 +192,7 @@ const Header = () => {
                           handleImageClick();
                         }}
                       />
+                      <span className="top-0 left-6 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
 
                       <div className="absolute right-0 mt-0 w-48 bg-white border rounded-lg shadow-lg invisible group-hover/auth:visible">
                         <ul className="py-2">
@@ -294,9 +226,7 @@ const Header = () => {
                   )}
 
                 </div>
-                <div>
-                  <ThemeToggler />
-                </div>
+
               </div>
             </div>
           </div>

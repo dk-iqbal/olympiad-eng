@@ -11,7 +11,7 @@ const createUserSchema = z.object({
   name: z.string().min(3),
   email: z.string().email(),
   phone: z.string().min(11).max(14),
-  password: z.string().min(8),
+  password: z.string().min(8)
 });
 
 interface CreateUserFormState {
@@ -69,7 +69,6 @@ export async function credentialsSignUp(
   formState: CreateUserFormState,
   formData: FormData
 ): Promise<CreateUserFormState> {
-  const role = formData.get("role") as string;
   const result = createUserSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -82,25 +81,19 @@ export async function credentialsSignUp(
       errors: (result as any).error.flatten().fieldErrors,
     };
   }
-
-  console.log(JSON.stringify({
+  const payload = {
     name: result.data.name,
     username: result.data.email,
     email: result.data.email,
-    phone: result.data.phone,
+    phone: result.data.phone.startsWith("+88") ? result.data.phone : "+88" + result.data.phone,
     password: result.data.password,
-    role,
-  }, null, 2))
-
+    role: 'STUDENT',
+  }
+  console.log(payload)
   try {
-    await clientAxios.post(`${USER_API.user_sign_in}`, {
-      name: result.data.name,
-      username: result.data.email,
-      email: result.data.email,
-      phone: result.data.phone.startsWith("+88") ? result.data.phone : "+88" + result.data.phone,
-      password: result.data.password,
-      role,
-    });
+    // const response = await clientAxios.post(`${USER_API.user_sign_up}`, payload);
+    const response = await axios.post(`http://localhost:4321/users/create`, payload);
+    console.log(response)
   } catch (err: unknown) {
     if (err instanceof Error) {
       return {
@@ -111,10 +104,10 @@ export async function credentialsSignUp(
     } else {
       return {
         errors: {
-          _form: ["Something went wrong"],
+          _form: [(err as any)?.response?.data?.message],
         },
       };
     }
   }
-  redirect("/login");
+  redirect("/signin");
 }

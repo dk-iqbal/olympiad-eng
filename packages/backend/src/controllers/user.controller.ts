@@ -2,8 +2,11 @@ import {
   Body,
   Controller, Delete, Get, HttpException,
   HttpStatus, NotFoundException,
-  Param, Post, Put, Query, Req
+  Param, Post, Put, Query, Req,
+  UploadedFile,
+  UseInterceptors
 } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiTags } from "@nestjs/swagger";
 import { Request } from "express";
 import { User } from "src/schemas/user.schema";
@@ -36,17 +39,35 @@ export class UserController {
   }
 
   @Post("create")
-  async create(@Body() user: User): Promise<User> {
+  @UseInterceptors(FileInterceptor("image"))
+  async create(
+    @UploadedFile() image: Express.Multer.File,
+    @Body() user: User): Promise<User> {
     const existingUser = await this.userService.findUser(user.phone, user.username);
     if (existingUser) {
       throw new HttpException('User already exists!', HttpStatus.FORBIDDEN);
+    }
+    if (image) {
+      user.image = image.buffer.toString("base64");
     }
     return this.userService.create(user);
   }
 
   @Put('edit/:id')
-  async edit(@Param('id') userId: string, @Body() updatedUser: User): Promise<User> {
+  @UseInterceptors(FileInterceptor("image"))
+  async edit(
+    @Param('id') userId: string,
+    @UploadedFile() image: Express.Multer.File,
+    @Body() updatedUser: User): Promise<User> {
     try {
+      if (
+        updatedUser.image &&
+        !updatedUser.image.startsWith("https")
+      ) {
+        if (image) {
+          updatedUser.image = image?.buffer?.toString("base64");
+        }
+      }
       return this.userService.edit(userId, updatedUser);
     } catch (error) {
       if (error instanceof NotFoundException) {

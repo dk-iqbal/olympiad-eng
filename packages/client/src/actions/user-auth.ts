@@ -1,5 +1,5 @@
 "use server";
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { SessionProps } from "./user-info";
@@ -29,7 +29,7 @@ export async function changePassAction(
   const session = (await auth()) as SessionProps;
 
   if (!session?.user) {
-    redirect("/login");
+    redirect("/signin");
   }
 
   if (!result.success) {
@@ -51,6 +51,7 @@ export async function changePassAction(
         password: result.data.password,
       }
     );
+    signOut()
   } catch (err: unknown) {
     if (err instanceof Error) {
       return {
@@ -66,5 +67,5 @@ export async function changePassAction(
       };
     }
   }
-  redirect("/login");
+  redirect("/signin");
 }

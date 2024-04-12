@@ -6,12 +6,15 @@ import { Model } from "mongoose";
 import * as nodemailer from "nodemailer";
 import { User, UserDocument } from "src/schemas/user.schema";
 import { UserDTO } from "src/viewModel/user.dto";
+import { Readable } from "stream";
+import { CloudinaryService } from "./cloudinary.service";
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name)
-    private userModel: Model<UserDocument>
+    private userModel: Model<UserDocument>,
+    private readonly cloudinaryService: CloudinaryService,
   ) { }
 
   async findAll(): Promise<UserDTO[]> {
@@ -36,6 +39,16 @@ export class UserService {
       ...user,
       password: hashedPassword
     });
+    if (user.image) {
+      const thumbnailStream = new Readable();
+      thumbnailStream.push(Buffer.from(user.image, "base64"));
+      thumbnailStream.push(null);
+
+      const thumbnailUrl = await this.cloudinaryService.uploadImage(
+        thumbnailStream
+      );
+      user.image = thumbnailUrl;
+    }
     return createUser.save();
   }
 
@@ -49,6 +62,22 @@ export class UserService {
   }
 
   async edit(id: string, updatedUser: User): Promise<User> {
+
+    if (
+      updatedUser.image &&
+      !updatedUser.image?.startsWith("https")
+    ) {
+      const thumbnailStream = new Readable();
+      thumbnailStream.push(Buffer.from(updatedUser.image, "base64"));
+      thumbnailStream.push(null);
+
+      const thumbnailUrl = await this.cloudinaryService.uploadImage(
+        thumbnailStream
+      );
+      if (updatedUser.image) {
+        updatedUser.image = thumbnailUrl;
+      }
+    }
     const existingUser = await this.userModel
       .findByIdAndUpdate(id, updatedUser, { new: true })
       .exec();

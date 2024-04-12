@@ -23,6 +23,7 @@ export const {
     }),
     CredentialsProvider({
       async authorize(credentials: any) {
+        console.log(credentials)
         return {
           name: credentials.name,
           email: credentials.email,
