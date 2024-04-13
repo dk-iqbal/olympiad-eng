@@ -8,47 +8,48 @@ const navigation = (): VerticalNavItemsType => [
     icon: 'tabler:smart-home'
   },
   {
-    title: 'Courses',
+    title: 'Olympiad',
     icon: 'tabler:book-2',
     children: [
       {
         path: '/course/manage-courses/list',
-        title: 'Manage Courses',
+        title: 'Manage Olympiad',
         icon: 'tabler:file-settings'
       },
       {
         path: '/course/manage-courses/form',
-        title: 'Add New Course',
+        title: 'Add New Olympiad',
         icon: 'tabler:file-plus'
       },
       {
         path: '/course/category',
-        title: 'Course Category',
+        title: 'Olympiad Category',
         icon: 'tabler:grid'
       },
-      {
-        path: '/course/manage-courses/section',
-        title: 'Section',
-        icon: 'tabler:tag'
-      }
+
+      // {
+      //   path: '/course/manage-courses/section',
+      //   title: 'Section',
+      //   icon: 'tabler:tag'
+      // }
     ]
   },
   {
     title: 'Users',
     icon: 'tabler:users',
     children: [
+      // {
+      //   path: '/users/admin-user',
+      //   title: 'Admin',
+      //   icon: 'tabler:shield-minus'
+      // },
+      // {
+      //   path: '/users/instructor-user',
+      //   title: 'Instructor',
+      //   icon: 'tabler:medal-2'
+      // },
       {
-        path: '/users/admin/list',
-        title: 'Admin',
-        icon: 'tabler:shield-minus'
-      },
-      {
-        path: '/users/instructor/list',
-        title: 'Instructor',
-        icon: 'tabler:medal-2'
-      },
-      {
-        path: '/users/student/list',
+        path: '/users/student-user',
         title: 'Student',
         icon: 'tabler:user-circle'
       }
@@ -60,7 +61,7 @@ const navigation = (): VerticalNavItemsType => [
     children: [
       {
         path: '/enrolment/course-enrolment',
-        title: 'Course Enrolment',
+        title: 'Enrolment Students',
         icon: 'tabler:file-plus'
       },
       {
@@ -85,46 +86,25 @@ const navigation = (): VerticalNavItemsType => [
       //   title: 'Instructor Report',
       //   icon: 'tabler:file-list'
       // },
-      {
-        path: '/report/overall-report',
-        title: 'Overall Report',
-        icon: 'tabler:file-list'
-      }
+      // {
+      //   path: '/report/overall-report',
+      //   title: 'Overall Report',
+      //   icon: 'tabler:file-list'
+      // }
     ]
   },
 
   // {
-  //   title: 'Affiliate',
-  //   icon: 'tabler:link',
+  //   title: 'E-Books',
+  //   icon: 'tabler:book',
   //   children: [
   //     {
-  //       path: '/affiliate/affiliate-list',
-  //       title: 'Affiliate List',
-  //       icon: 'tabler:file-list'
-  //     },
-  //     {
-  //       path: '/affiliate/payouts',
-  //       title: 'Payouts',
-  //       icon: 'tabler:file-list'
-  //     },
-  //     {
-  //       path: '/affiliate/affiliate-history',
-  //       title: 'Affiliate History',
+  //       path: '/ebooks/ebook-list',
+  //       title: 'E-Books List',
   //       icon: 'tabler:file-list'
   //     }
   //   ]
   // },
-  {
-    title: 'E-Books',
-    icon: 'tabler:book',
-    children: [
-      {
-        path: '/ebooks/ebook-list',
-        title: 'E-Books List',
-        icon: 'tabler:file-list'
-      }
-    ]
-  },
 
   // {
   //   title: 'Permissions',
@@ -142,22 +122,11 @@ const navigation = (): VerticalNavItemsType => [
   //     }
   //   ]
   // },
-  {
-    title: 'Model Test',
-    icon: 'tabler:file-check',
-    children: [
-      {
-        path: '/model-test/list',
-        title: 'Model Test List',
-        icon: 'tabler:file-list'
-      }
-    ]
-  },
-  {
-    title: 'Comments',
-    path: '/comments',
-    icon: 'tabler:address-book'
-  },
+  // {
+  //   title: 'Comments',
+  //   path: '/comments',
+  //   icon: 'tabler:address-book'
+  // },
 
   // {
   //   title: 'Live',

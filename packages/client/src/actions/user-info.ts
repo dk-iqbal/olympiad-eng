@@ -24,7 +24,6 @@ export async function fetchAuthUser() {
     const res = await clientAxios.get(
       `${USER_API.fetch_user_by_id(session?.user?.id)}`
     );
-    console.log(res.data);
     return res.data;
   } catch (error) {
     console.log(error);

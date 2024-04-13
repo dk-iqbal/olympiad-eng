@@ -15,13 +15,10 @@ const ProfileImage = ({ session }) => {
             const imageUrl = URL.createObjectURL(file);
             setProfileImage(imageUrl);
 
-            // Convert image file to base64 string
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = async () => {
                 const base64Image = reader.result?.toString().split(",")[1];
-                // console.log(base64Image)
-                // return;
                 sleep();
                 try {
                     await clientAxios.put(

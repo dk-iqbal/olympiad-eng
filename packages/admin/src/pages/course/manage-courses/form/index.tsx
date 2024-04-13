@@ -14,8 +14,7 @@ import { AddBox, NavigateBefore, RemoveCircle } from '@mui/icons-material'
 import { toast } from 'react-toastify'
 import baseAxios from 'src/services/config'
 import { COURSE_API } from 'src/services/api-end-points'
-import { COURSE_TYPE, USER_ROLE, USER_STATUS, validateFiled } from 'src/utils/util'
-import { fetchUsers } from 'src/services/CommonFunction'
+import { COURSE_TYPE, USER_STATUS, validateFiled } from 'src/utils/util'
 import CustomForm from 'src/layouts/components/common/CommonForm'
 import InputField from 'src/layouts/components/common/InputField'
 import RadioGroup from 'src/layouts/components/common/RadioGroup'
@@ -26,16 +25,10 @@ import { useRouter } from 'next/router'
 import { isString } from 'lodash'
 import Checkbox from 'src/layouts/components/common/Checkbox'
 import { getCategoriesByStatus } from 'src/utils/functions/categoryFunction'
-import dynamic from "next/dynamic";
 
 const initialValidationData = {
   name: '',
-  description: '',
   price: '',
-  category: '',
-  courseProvider: '',
-  courseOverview: '',
-  instructor: ''
 }
 
 const initialData = {
@@ -52,7 +45,7 @@ const initialData = {
   instructor: { label: '', value: '' },
   info: '',
   organizationId: '',
-  courseType: 'COURSE',
+  courseType: 'MODEL_TEST',
   faqQuestions: [{ question: '', answer: '' }],
   requirement: [''],
   expiryPeriod: '',
@@ -98,11 +91,9 @@ const AddNewCourse: NextPage = () => {
   const [requirementFields, setRequirementFields] = useState([''])
   const [descriptionFields, setDescriptionFields] = useState([''])
   const [categories, setCategories] = useState([])
-  const [instractors, setInstractors] = useState([])
   const userData = JSON.parse(localStorage?.getItem('userData') as string) || ''
 
   const parseSelectedItem = isString(selectedItem) ? JSON.parse(selectedItem) : selectedItem
-  const Editor = dynamic(() => import("src/layouts/components/common/Editor"), { ssr: false });
 
   /*
   1. Validate Form fields
@@ -110,32 +101,14 @@ const AddNewCourse: NextPage = () => {
 */
   const validateForm = () => {
     const courseTitleError = validateFiled(formData?.['name'])
-    const shortDescError = validateFiled(formData?.['description'])
     const priceError = validateFiled(formData?.['price'])
-    const courseOverviewError = validateFiled(formData?.['courseOverview'])
-    const courseCategoryError = validateFiled(formData?.['category']?.value)
-    const courseProviderError = validateFiled(formData?.['courseProvider']?.value)
-    const instructorError = validateFiled(formData?.['instructor']?.value)
 
     setErrors({
       name: courseTitleError,
-      description: shortDescError,
-      price: priceError,
-      courseOverview: courseOverviewError,
-      category: courseCategoryError,
-      courseProvider: courseProviderError,
-      instructor: instructorError
+      price: priceError
     })
 
-    return (
-      !courseTitleError &&
-      !shortDescError &&
-      !priceError &&
-      !courseOverviewError &&
-      !courseCategoryError &&
-      !courseProviderError &&
-      !instructorError
-    )
+    return !courseTitleError && !priceError
   }
 
   /*
@@ -152,8 +125,8 @@ const AddNewCourse: NextPage = () => {
       const newFields = [...descriptionFields]
       newFields[index] = value
       setDescriptionFields(newFields)
-    } else if (fieldName && fieldName !== 'requirement') {
-      const newFaqFields = [...faqFields as any]
+    } else if (fieldName && fieldName !== 'requirement' && type !== 'checkbox') {
+      const newFaqFields = [...(faqFields as any)]
       newFaqFields[index][fieldName] = value
       setFaqFields(newFaqFields)
     } else {
@@ -259,78 +232,26 @@ const AddNewCourse: NextPage = () => {
       required: true
     },
     {
-      name: 'instructor',
-      label: 'Instructor',
-      placeholder: 'Select Instructor',
-      fieldType: 'select',
-      options: instractors || [],
-      required: true
-    },
-    {
-      name: 'multiInstructorIds',
-      label: 'Multi Instructor',
-      placeholder: 'Select Multiple Instructor',
-      fieldType: 'multiSelect',
-      options: instractors || [],
-      required: false
-    },
-    {
       name: 'name',
-      label: 'Course Name',
-      placeholder: 'Enter Course Name',
+      label: 'Olympiad Name',
+      placeholder: 'Enter Olympiad Name',
       inputMode: 'text',
       type: 'textbox',
       required: true
     },
-
-    // {
-    //   name: 'description',
-    //   label: 'Short Description',
-    //   placeholder: 'Enter Short Description',
-    //   inputMode: 'test',
-    //   type: 'textbox',
-    //   fieldType: 'textarea'
-    // },
     {
       name: 'price',
-      label: 'Course Price',
-      placeholder: 'Enter course price',
+      label: 'Olympiad Price',
+      placeholder: 'Enter price',
       inputMode: 'text',
       type: 'textbox',
       required: true
-    },
-    {
-      name: 'courseProvider',
-      label: 'Course Provider',
-      placeholder: 'Select Provider',
-      fieldType: 'select',
-      options: [{ label: 'Youtube', value: 'Youtube' }],
-      required: true
-    },
-    {
-      name: 'courseOverview',
-      label: 'Course Overview',
-      fieldType: 'text',
-      placeholder: 'E.g: https://www.youtube.com/watch',
-      required: true
-    },
-    {
-      name: 'thumbnail',
-      label: 'Thumbnail',
-      fieldType: 'imagePrivew',
-      src: '',
-      icon: '',
-      required: false
     }
   ]
 
   useEffect(() => {
     getCategoriesByStatus(USER_STATUS.ACTIVE).then((res: any) => {
       setCategories(res?.map((c: any) => ({ label: c.name, value: c._id })))
-    })
-
-    fetchUsers(USER_ROLE.INSTRUCTOR, USER_STATUS.ACTIVE).then((res: any) => {
-      setInstractors(res?.map((c: any) => ({ label: c.name, value: c._id })))
     })
   }, [])
 
@@ -341,10 +262,9 @@ const AddNewCourse: NextPage = () => {
         : parseSelectedItem?.info
 
       setFormData({
+        ...formData,
         name: parseSelectedItem?.name || '',
         description: parseSelectedItem?.description || '',
-        multiInstructorIds: isString(parseSelectedItem?.multiInstructorIds)
-          ? JSON.parse(parseSelectedItem?.multiInstructorIds) : parseSelectedItem?.multiInstructorIds || [],
         courseDescriptions: parseInfo?.courseDescriptions || '',
         price: parseSelectedItem?.price || '',
         category: {
@@ -373,8 +293,7 @@ const AddNewCourse: NextPage = () => {
         info: parseInfo?.info || '',
         faqQuestions: parseInfo?.faqQuestions || [],
         requirement: parseInfo?.requirement || [],
-        limitedMonths: parseInfo?.limitedMonths || '',
-        image: parseSelectedItem?.thumbnail
+        limitedMonths: parseInfo?.limitedMonths || ''
       })
 
       setRequirementFields(parseInfo?.requirement || [''])
@@ -386,7 +305,7 @@ const AddNewCourse: NextPage = () => {
 
   return (
     <Grid container justifyContent='center' alignContent='center'>
-      <Form onSubmit={onSubmit} heading={id ? 'Update Course Form' : 'Create Course Form'}>
+      <Form onSubmit={onSubmit} heading={id ? 'Update Olympiad Form' : 'Create Olympiad Form'}>
         <>
           <Accordion defaultExpanded={true} TransitionProps={{ unmountOnExit: true }}>
             <AccordionSummary
@@ -419,9 +338,12 @@ const AddNewCourse: NextPage = () => {
                 >
                   {'Is Discount'}
                 </Typography>
-                <Checkbox name='isDiscount' onChange={(e: any) => onChange(e, 'isDiscount', -1)} checked={formData?.isDiscount} />
+                <Checkbox
+                  name='isDiscount'
+                  onChange={(e: any) => onChange(e, 'isDiscount', -1)}
+                  checked={formData?.isDiscount}
+                />
               </Stack>
-
 
               {formData.isDiscount === true ? (
                 <Stack direction={'row'} alignItems='center'>
@@ -452,24 +374,10 @@ const AddNewCourse: NextPage = () => {
                     fontSize: { xs: 12, sm: 15 }
                   }}
                 >
-                  {'Is Free'}
+                  {'Is Mock Test'}
                 </Typography>
                 <Checkbox name='isFree' onChange={(e: any) => onChange(e, 'isFree', -1)} checked={formData?.isFree} />
               </Stack>
-
-              <Typography
-                sx={{
-                  minWidth: { xs: '120px', sm: '180px' },
-                  fontWeight: 'bold',
-                  fontSize: { xs: 12, sm: 15 }
-                }}
-              >
-                {'Description : '} <span style={{ color: 'red' }}>*</span>
-              </Typography>
-              <Stack direction={'row'} alignItems='center'>
-                <Editor formData={formData} setFormData={setFormData} />
-              </Stack>
-
             </AccordionDetails>
           </Accordion>
 

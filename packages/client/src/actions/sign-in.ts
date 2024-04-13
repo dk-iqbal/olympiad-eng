@@ -89,11 +89,9 @@ export async function credentialsSignUp(
     password: result.data.password,
     role: 'STUDENT',
   }
-  console.log(payload)
   try {
     // const response = await clientAxios.post(`${USER_API.user_sign_up}`, payload);
     const response = await axios.post(`http://localhost:4321/users/create`, payload);
-    console.log(response)
   } catch (err: unknown) {
     if (err instanceof Error) {
       return {

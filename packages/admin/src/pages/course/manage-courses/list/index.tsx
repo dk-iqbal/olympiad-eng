@@ -203,7 +203,7 @@ const ActiveCourse = () => {
 
   return (
     <BaseLayout
-      heading='Manage Courses'
+      heading='Manage Olympiad'
       isActionButton={
         <Button
           name='Add New'

@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const { REACT_APP_BASE_URL_LOCAL_HOST } = process.env
-console.log(REACT_APP_BASE_URL_LOCAL_HOST)
+const { NEXT_APP_BASE_URL_LOCAL_HOST } = process.env
+console.log(NEXT_APP_BASE_URL_LOCAL_HOST)
 
 const baseAxios = axios.create({
-  baseURL: 'http://localhost:4321',
+  baseURL: NEXT_APP_BASE_URL_LOCAL_HOST || 'http://localhost:4321',
   headers: {
     'Content-Type': 'application/json'
   }

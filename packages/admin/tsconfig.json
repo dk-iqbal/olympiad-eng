@@ -12,6 +12,8 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "preserveSymlinks": false,
+    "typeRoots": ["./node_modules/@types"],
     "forceConsistentCasingInFileNames": true,
     // "suppressImplicitAnyIndexErrors": true,
     "noEmit": true,
@@ -28,7 +30,8 @@
       ],
       "apexcharts/*": [
         "./node_modules/apexcharts-clevision/*"
-      ]
+      ],
+      "react": ["./node_modules/@types/react"]
     }
   },
   "include": [

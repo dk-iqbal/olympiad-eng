@@ -118,12 +118,12 @@ const App = (props: ExtendedAppProps) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>{`${themeConfig.templateName} - Arafatacczone`}</title>
+        <title>{`${themeConfig.templateName} - Olympiad`}</title>
         <meta
           name='description'
           content={`${themeConfig.templateName} – Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
         />
-        <meta name='keywords' content='Arafatacczone, Accounting, arafatacczone, React arafatacczone' />
+        <meta name='keywords' content='Olympiad, Accounting, Olympiad, React Olympiad' />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
 

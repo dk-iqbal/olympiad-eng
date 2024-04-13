@@ -5,7 +5,8 @@ import Link from 'next/link'
 import IconButton from '@mui/material/IconButton'
 import Box, { BoxProps } from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+
+// import Typography, { TypographyProps } from '@mui/material/Typography'
 
 // ** Type Import
 import { LayoutProps } from 'src/@core/layouts/types'
@@ -14,7 +15,7 @@ import { LayoutProps } from 'src/@core/layouts/types'
 import Icon from 'src/@core/components/icon'
 
 // ** Configs
-import themeConfig from 'src/configs/themeConfig'
+// import themeConfig from 'src/configs/themeConfig'
 
 interface Props {
   navHover: boolean
@@ -39,11 +40,11 @@ const MenuHeaderWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: theme.mixins.toolbar.minHeight
 }))
 
-const HeaderTitle = styled(Typography)<TypographyProps>({
-  fontWeight: 700,
-  lineHeight: '24px',
-  transition: 'opacity .25s ease-in-out, margin .25s ease-in-out'
-})
+// const HeaderTitle = styled(Typography)<TypographyProps>({
+//   fontWeight: 700,
+//   lineHeight: '24px',
+//   transition: 'opacity .25s ease-in-out, margin .25s ease-in-out'
+// })
 
 const LinkStyled = styled(Link)({
   display: 'flex',
@@ -95,9 +96,10 @@ const VerticalNavHeader = (props: Props) => {
       ) : (
         <LinkStyled href='/'>
           <img
-            src={`/images/main-logo.png`}
+            src={`/header_logo.png`}
+            width={200}
             alt='header logo'
-            style={{ padding: 10, margin: 1, marginLeft: -30, marginBottom: 2 }}
+            style={{ padding: 10, margin: 1, marginLeft: -10, marginBottom: 2 }}
           />
           {/* <RegisterIllustration alt='header logo' src={`/images/header-logo.png`} /> */}
           {/* <svg width={34} viewBox='0 0 32 22' fill='none' xmlns='/'>
@@ -128,9 +130,9 @@ const VerticalNavHeader = (props: Props) => {
               d='M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z'
             />
           </svg> */}
-          <HeaderTitle variant='h4' sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 2.5 }) }}>
+          {/* <HeaderTitle variant='h4' sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 2.5 }) }}>
             {themeConfig.templateName}
-          </HeaderTitle>
+          </HeaderTitle> */}
         </LinkStyled>
       )}
 
