@@ -3,7 +3,6 @@ import {
   Add,
   Delete,
   Edit,
-  Addchart,
   MoreVert as Action,
   SmartDisplay,
   Close,
@@ -13,9 +12,6 @@ import {
   BookOnline
 } from '@mui/icons-material'
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   List,
   useTheme,
@@ -36,7 +32,6 @@ import Dialog from 'src/layouts/components/common/Dialog'
 import InputField from 'src/layouts/components/common/InputField'
 import { useRouter } from 'next/router'
 import CommonListDetails from '../../../../layouts/components/common/CommonListDetails'
-import AssignmentForm from '../assignment/form'
 import { validateFiled } from 'src/utils/util'
 import { toast } from 'react-toastify'
 import CustomCircular from 'src/layouts/components/common/CustomCirlcle'
@@ -67,7 +62,6 @@ const CourseDetails = () => {
   const [openItemIndex, setOpenItemIndex] = useState(-1)
   const [openSectionModal, setOpenSectionModal] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
-  const [openModal, setOpenModal] = useState(false)
   const [loading, setLoading] = useState(true)
   const [selectedItem, setSelectedItem] = useState({})
   const [sectionNames, setSectionNames] = useState([{ id: '', sectionName: '' }])
@@ -163,7 +157,6 @@ const CourseDetails = () => {
     if (actions.length > 0) {
       switch (i) {
         case 2: {
-          setOpenModal(true)
           setSelectedItem(item?.selectedItem)
           break
         }
@@ -210,11 +203,11 @@ const CourseDetails = () => {
 
   return (
     <BaseLayout
-      heading='Course Details'
+      heading='Olympiad Details'
       isActionButton={
         <Stack direction={'row'} gap={1}>
           <Button
-            name=''
+            name='Routine'
             endIcon={<BookOnline />}
             onClick={() => {
               router.push({
@@ -225,14 +218,6 @@ const CourseDetails = () => {
             bgColor={theme.palette.success.dark}
             color={theme.palette.common.white}
           />
-
-          <Button
-            name='Add Section'
-            endIcon={<Add />}
-            onClick={() => setOpenSectionModal(true)}
-            bgColor={theme.palette.primary.dark}
-            color={theme.palette.common.white}
-          />
         </Stack>
       }
     >
@@ -241,24 +226,8 @@ const CourseDetails = () => {
       ) : (
         sections &&
         sections?.['sections']?.map((sec: any, secIdx: number) => (
-          <Accordion key={sec?.id} defaultExpanded={true} TransitionProps={{ unmountOnExit: true }}>
-            <Stack width={'100%'} direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-              <AccordionSummary
-                sx={{
-                  color: 'steelblue',
-                  bgcolor: '#ededed',
-                  background: 'white',
-                  width: '80%',
-                  '& .MuiAccordionSummary-content': {
-                    justifyContent: 'space-between !important'
-                  }
-                }}
-              >
-                <Typography sx={{ fontSize: { xs: 13, sm: 16 }, minWidth: 250 }}>
-                  {`Section ${secIdx + 1} : ${sec.name}`}
-                </Typography>
-              </AccordionSummary>
-
+          <>
+            <Stack width={'100%'} mt={2} direction={'row'} justifyContent={'flex-end'} alignItems={'center'}>
               {isSmallDevice ? (
                 <SpeedDial
                   onClose={event => {
@@ -286,15 +255,6 @@ const CourseDetails = () => {
                   openIcon={<Close />}
                   direction='left'
                 >
-                  {/* <Backdrop
-                  open={false}
-                  sx={{
-                    background: "background.paper",
-                    borderRadius: 10,
-                    backgroundColor: "whitesmoke",
-                    zIndex: 999,
-                  }}
-                /> */}
                   <SpeedDialAction
                     icon={<AddCircle color='success' />}
                     sx={{
@@ -303,7 +263,7 @@ const CourseDetails = () => {
                       marginRight: { xs: 0, sm: 1 },
                       zIndex: 999
                     }}
-                    tooltipTitle={'Add Lesson'}
+                    tooltipTitle={'Add Quiz'}
                     onClick={e => {
                       e.stopPropagation()
                       e.preventDefault()
@@ -324,7 +284,7 @@ const CourseDetails = () => {
                   }}
                 >
                   <Button
-                    name='Add Lesson'
+                    name='Add Quiz'
                     startIcon={<Add />}
                     onClick={() =>
                       router.push({
@@ -338,64 +298,58 @@ const CourseDetails = () => {
                 </Stack>
               )}
             </Stack>
-            <AccordionDetails>
-              <List sx={{ width: '100%', mt: 1 }}>
-                {sec.lessons?.length > 0 ? (
-                  sec.lessons?.map((item: any, index: number) => {
-                    const updateItem = {
-                      id: item.id,
-                      listItem: [
-                        {
-                          label: 'name',
-                          value: `Lesson ${index + 1} : ${item.name}`
-                        },
-                        {
-                          label: 'duration',
-                          value: `Duration: ${item.duration}`
-                        }
-                      ],
-                      selectedItem: item,
-
-                      avatar: <SmartDisplay />
-                    }
-                    const actions = [
-                      { icon: <Edit color='warning' />, name: 'Edit' },
-                      { icon: <Delete color='error' />, name: 'Delete' },
+            
+            <List sx={{ width: '100%', mt: 1 }}>
+              {sec.lessons?.length > 0 ? (
+                sec.lessons?.map((item: any, index: number) => {
+                  const updateItem = {
+                    id: item.id,
+                    listItem: [
                       {
-                        icon:
-                          item.assignments.length > 0 ? <Addchart color='secondary' /> : <Addchart color='primary' />,
-                        name: `${item.assignments.length > 0 ? 'Edit' : 'Add'} Assignment`
+                        label: 'name',
+                        value: `Lesson ${index + 1} : ${item.name}`
+                      },
+                      {
+                        label: 'duration',
+                        value: `Duration: ${item.duration}`
                       }
-                    ]
+                    ],
+                    selectedItem: item,
 
-                    return (
-                      <CommonListDetails
-                        key={item.id}
-                        item={updateItem}
-                        notShowDetails={true}
-                        navigatePath='/course/manage-courses/lesson/details'
-                        index={index}
-                        handleClickActions={handleClickActions}
-                        actions={actions}
-                      />
-                    )
-                  })
-                ) : (
-                  <Box
-                    sx={{
-                      textAlign: 'center',
-                      p: 2,
-                      color: 'red',
-                      fontWeight: 'bold',
-                      fontSize: 18
-                    }}
-                  >
-                    Data Not Found
-                  </Box>
-                )}
-              </List>
-            </AccordionDetails>
-          </Accordion>
+                    avatar: <SmartDisplay />
+                  }
+                  const actions = [
+                    { icon: <Edit color='warning' />, name: 'Edit' },
+                    { icon: <Delete color='error' />, name: 'Delete' }
+                  ]
+
+                  return (
+                    <CommonListDetails
+                      key={item.id}
+                      item={updateItem}
+                      notShowDetails={true}
+                      navigatePath='/course/manage-courses/lesson/details'
+                      index={index}
+                      handleClickActions={handleClickActions}
+                      actions={actions}
+                    />
+                  )
+                })
+              ) : (
+                <Box
+                  sx={{
+                    textAlign: 'center',
+                    p: 2,
+                    color: 'red',
+                    fontWeight: 'bold',
+                    fontSize: 18
+                  }}
+                >
+                  Data Not Found
+                </Box>
+              )}
+            </List>
+          </>
         ))
       )}
 
@@ -457,15 +411,6 @@ const CourseDetails = () => {
             </Grid>
           </Form>
         </Box>
-      </Modal>
-
-      <Modal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
-      >
-        <AssignmentForm setOpenModal={setOpenModal} selectedItem={{ ...selectedItem, courseId: id }} />
       </Modal>
     </BaseLayout>
   )

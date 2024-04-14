@@ -136,7 +136,7 @@ function ActiveSectionList() {
             <CustomAutocomplete
               onChange={e => handleFilterChange(e, 'course')}
               options={searchDdl?.course || []}
-              placeholder='Select Course'
+              placeholder='Select Olympiad'
               value={searchValue?.course}
             />
           </Grid>
@@ -148,7 +148,7 @@ function ActiveSectionList() {
                   id: item._id,
                   listItem: [
                     {
-                      label: 'Course Name',
+                      label: 'Olympiad Name',
                       value: item.courseName
                     },
                     {

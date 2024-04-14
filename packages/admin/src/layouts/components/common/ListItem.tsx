@@ -64,7 +64,7 @@ const ListItemComponent: React.FC<ListItemComponentProps> = props => {
     <Box key={1} sx={{ maxWidth: '100%', zIndex: -1 }}>
       <ListItem
         onClick={() => onListItemClick()}
-        id={`Course-${index}`}
+        id={`Olympiad-${index}`}
         sx={{
           backgroundColor: 'white',
           '&:hover': {
@@ -177,7 +177,7 @@ const ListItemComponent: React.FC<ListItemComponentProps> = props => {
                       mr: 1
                     }}
                   >
-                    Course: <b>{item.course}</b>
+                    Olympiad: <b>{item.course}</b>
                   </Typography>
                 )}
               </Stack>

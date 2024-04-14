@@ -166,7 +166,7 @@ const PendingComments: React.FC = () => {
                   status: comment.status ? 'Approved' : 'Pending',
                   details: [
                     { label: 'Comments', value: comment.feedbackText },
-                    { label: 'Course', value: comment.courseName }
+                    { label: 'Olympiad', value: comment.courseName }
                   ]
                 }
                 const actions = [

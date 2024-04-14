@@ -106,8 +106,8 @@ const getAllCourseAndModelTest = async () => {
   const inputField = [
     {
       name: 'course',
-      label: 'Course',
-      placeholder: 'Select Course / Model Test',
+      label: 'Olympiad',
+      placeholder: 'Select Olympiad',
       fieldType: 'select',
       options: courses || [],
       required: true

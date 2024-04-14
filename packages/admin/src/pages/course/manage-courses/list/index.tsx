@@ -33,11 +33,9 @@ const ActiveCourse = () => {
   const [courses, setCourses] = useState([])
   const [searchDdl, setSearchDdl] = useState<{
     category: Option[]
-    instructor: Option[]
     status: Option[]
   }>({
     category: [],
-    instructor: [],
     status: []
   })
   const [searchValue, setSearchValue] = useState({
@@ -75,20 +73,13 @@ const ActiveCourse = () => {
   const fetchAllActiveCourse = async () => {
     setLoading(true)
     try {
-      const response = await fetchCoursesByCourseType(COURSE_TYPE.COURSE)
+      const response = await fetchCoursesByCourseType(COURSE_TYPE.MODEL_TEST)
       setActiveCourses(response as any)
       setCourses(response as any)
       const category = uniqBy(response?.map((c: any) => ({
         label: c.categoryName,
         value: c.categoryId
       })), 'value')
-      const instructor = uniqBy(
-        response?.map((c: any) => ({
-          label: c.instructorName,
-          value: c.instructorId
-        })),
-        'value'
-      )
       const status = uniqBy(
         response?.map((c: any) => ({
           label: c.status,
@@ -98,7 +89,6 @@ const ActiveCourse = () => {
       )
       setSearchDdl({
         category: category,
-        instructor: instructor as Array<unknown> as Option[],
         status: status as Array<unknown> as Option[]
       })
     } catch (error) {
@@ -132,11 +122,6 @@ const ActiveCourse = () => {
         return filters.category?.value === course.categoryId
       })
     }
-    if (filters?.instructor) {
-      filteredCourses = filteredCourses?.filter((course: any) => {
-        return filters.instructor?.value === course.instructorId
-      })
-    }
     if (filters?.status) {
       filteredCourses = filteredCourses?.filter((course: any) => {
         return filters.status?.value === course.status
@@ -154,7 +139,7 @@ const ActiveCourse = () => {
 
   const getCourseSummary = async () => {
     try {
-      const response = await getCourseSummaryByCourseType(COURSE_TYPE.COURSE)
+      const response = await getCourseSummaryByCourseType(COURSE_TYPE.MODEL_TEST)
       setCourseSummary(response)
     } catch (error) {
       console.log(error)
@@ -176,28 +161,28 @@ const ActiveCourse = () => {
       href: '',
       icon: <ImportContacts sx={{ fontSize: 24 }} />,
       count: courseSummary?.totalActiveCourse,
-      label: 'Active Courses'
+      label: 'Active Olympiad'
     },
     {
       id: 2,
       href: '',
       icon: <AutoStories sx={{ fontSize: 24 }} />,
       count: courseSummary?.totalPendingCourse,
-      label: 'Pending Courses'
+      label: 'Pending Olympiad'
     },
     {
       id: 3,
       href: '',
       icon: <Stream sx={{ fontSize: 24 }} />,
       count: courseSummary?.totalFreeCourse,
-      label: 'Free Courses'
+      label: 'Free Olympiad'
     },
     {
       id: 4,
       href: '',
       icon: <People sx={{ fontSize: 24 }} />,
       count: courseSummary?.totalPaidCourse,
-      label: 'Paid Courses'
+      label: 'Paid Olympiad'
     }
   ]
 
@@ -223,7 +208,7 @@ const ActiveCourse = () => {
       <Paper sx={{ mt: { xs: 1, sm: 2 } }}>
         <Grid container spacing={1} p={1} justifyContent={'center'} alignItems={'center'}>
           {/* Course Categories */}
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={4} lg={5}>
             <CustomAutocomplete
               onChange={e => handleFilterChange(e, 'category')}
               options={searchDdl?.category || []}
@@ -233,17 +218,17 @@ const ActiveCourse = () => {
           </Grid>
 
           {/* Course Instructors */}
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <CustomAutocomplete
               onChange={e => handleFilterChange(e, 'instructor')}
               options={searchDdl?.instructor || []}
               placeholder='Select Instructor'
               value={searchValue?.instructor}
             />
-          </Grid>
+          </Grid> */}
 
           {/* Course Status */}
-          <Grid item xs={12} md={4} lg={3}>
+          <Grid item xs={12} md={4} lg={5}>
             <CustomAutocomplete
               onChange={e => handleFilterChange(e, 'status')}
               options={searchDdl?.status || []}
@@ -299,11 +284,12 @@ const ActiveCourse = () => {
                       id: course._id,
                       name: course.name,
                       status: course.status,
-                      section: course.info.section,
-                      lesson: course.info.lesson,
+                      
+                      // section: course.info.section,
+                      // lesson: course.info.lesson,
                       enrolled: course.info.enrolled,
                       details: [
-                        { label: 'Instructor', value: course.instructorName },
+                        // { label: 'Instructor', value: course.instructorName },
                         { label: 'Category', value: course.categoryName },
                         { label: 'Price', value: course.price },
                         { label: 'Expiry', value: parseCourse.expiryPeriod }
@@ -342,7 +328,7 @@ const ActiveCourse = () => {
           open={dectivedModalOpen}
           setOpen={setDectivedModalOpen}
           loading={loading}
-          headertext='Course Deactivation'
+          headertext='Olympiad Deactivation'
           actionButtonName='Confirm'
           bodyText={`Are you sure? You want to ${(selectedItem as any)?.status === 'Pending' ? 'Approved' : 'Pending'} `}
           handleChange={() => onCourseDeactivation(selectedItem)}

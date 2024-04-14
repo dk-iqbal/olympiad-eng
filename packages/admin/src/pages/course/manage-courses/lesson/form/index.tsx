@@ -1,4 +1,4 @@
-import { Add, RemoveCircle, AddBox, NavigateBefore } from '@mui/icons-material'
+import { RemoveCircle, AddBox, NavigateBefore } from '@mui/icons-material'
 import {
   Accordion,
   AccordionDetails,
@@ -32,8 +32,6 @@ import {
 
 const initialValidationData = {
   name: '',
-  duration: '',
-  lessonURL: ''
 }
 
 const initialData = {
@@ -44,13 +42,10 @@ const initialData = {
   questions: [
     {
       questionName: '',
-      answerOptions: [{ isAnswer: false, answer: '' }],
+      answerOptions: [{ isAnswer: false, answer: '' }, { isAnswer: false, answer: '' }, { isAnswer: false, answer: '' }, { isAnswer: false, answer: '' }],
       correctAnswer: ''
     }
   ],
-
-  // image: '',
-  // thumbnail: '',
   status: true,
   info: '',
   isFree: false,
@@ -78,7 +73,7 @@ const AddNewLesson = () => {
         ...formData.questions,
         {
           questionName: '',
-          answerOptions: [{ isAnswer: false, answer: '' }],
+          answerOptions: [{ isAnswer: false, answer: '' }, { isAnswer: false, answer: '' }, { isAnswer: false, answer: '' }, { isAnswer: false, answer: '' }],
           correctAnswer: ''
         }
       ]
@@ -151,16 +146,12 @@ const AddNewLesson = () => {
 
   const validateForm = () => {
     const lessonNameError = validateFiled(formData?.['name'])
-    const lessonURLError = validateFiled(formData?.['lessonURL'])
-    const durationError = validateFiled(formData?.['duration'])
 
     setErrors({
-      name: lessonNameError,
-      lessonURL: lessonURLError,
-      duration: durationError
+      name: lessonNameError
     })
 
-    return !lessonNameError && !lessonURLError && !durationError
+    return !lessonNameError
   }
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -170,10 +161,6 @@ const AddNewLesson = () => {
       const payload = {
         sectionId: id,
         name: formData?.name,
-        lessonURL: formData?.lessonURL,
-
-        // thumbnail: (formData as any)?.thumbnail ? (formData as any)?.thumbnail : formData?.image.split(',')[1],
-        duration: formData?.duration,
         markPerQuestion: formData?.markPerQuestion,
         isFree: formData?.isFree,
         isActive: formData?.isActive,
@@ -257,9 +244,6 @@ const AddNewLesson = () => {
           ...i,
           answerOptions: isString(i.answerOptions) ? JSON.parse(i.answerOptions) : i.answerOptions
         })),
-
-        // image: parsedSelectedItem.thumbnail,
-        // thumbnail: parsedSelectedItem.thumbnail,
         status: parsedSelectedItem.status,
         info: parsedInfo,
         isFree: parsedSelectedItem.isFree,
@@ -274,22 +258,11 @@ const AddNewLesson = () => {
 
   return (
     <BaseLayout
-      heading='Add New Lesson'
-      isActionButton={
-        id && parsedSelectedItem?.assignments?.length === 0 ? (
-          <Button
-            name='Add Assignment'
-            endIcon={<Add />}
-            onClick={() => setOpenModal(true)}
-            bgColor={theme.palette.primary.dark}
-            color={theme.palette.common.white}
-          />
-        ) : undefined
-      }
+      heading='Add Quiz'
     >
       <Form onSubmit={onSubmit}>
         {/* <Paper sx={{ p: 2 }}> */}
-        <Stack direction={'row'} alignItems='center'>
+        {/* <Stack direction={'row'} alignItems='center'>
           <Typography
             sx={{
               minWidth: { xs: '130px', sm: '180px' },
@@ -372,8 +345,6 @@ const AddNewLesson = () => {
           />
         </Stack>
 
-        {/* <ImageUpload formData={formData} setFormData={setFormData} /> */}
-
         <Stack direction={'row'} alignItems='center'>
           <Typography
             sx={{
@@ -397,8 +368,66 @@ const AddNewLesson = () => {
             {'Is Active'}
           </Typography>
           <Checkbox name='isActive' onChange={(e: any) => onChange(e)} checked={formData?.isActive} />
+        </Stack> */}
+
+        <Stack direction={'row'} alignItems='center'>
+          <Typography
+            sx={{
+              minWidth: { xs: '130px', sm: '180px' },
+              fontWeight: 'bold',
+              fontSize: { xs: 13, sm: 15 }
+            }}
+          >
+            {'Quiz Name'}
+            {<span style={{ color: 'red' }}>*</span>}
+          </Typography>
+          <InputField
+            name={'name'}
+            value={formData.name}
+            type={'text'}
+            onChange={onChange}
+            placeholder={'Enter Quiz Name'}
+            error={errors.name}
+          />
         </Stack>
 
+        <Stack direction={'row'} alignItems='center'>
+          <Typography
+            sx={{
+              minWidth: { xs: '120px', sm: '180px' },
+              fontWeight: 'bold',
+              fontSize: { xs: 12, sm: 15 }
+            }}
+          >
+            {'Mark Per Ques.'}
+          </Typography>
+          <InputField
+            name={'markPerQuestion'}
+            value={formData.markPerQuestion}
+            type={'decimal'}
+            onChange={onChange}
+            placeholder={'Enter Per Question'}
+          />
+        </Stack>
+
+        <Stack direction={'row'} alignItems='center'>
+          <Typography
+            sx={{
+              minWidth: { xs: '130px', sm: '180px' },
+              fontSize: { xs: 13, sm: 15 },
+              fontWeight: 'bold'
+            }}
+          >
+            {'Pass Marks'}
+          </Typography>
+          <InputField
+            name={'passingMarks'}
+            value={formData.passingMarks}
+            type={'text'}
+            onChange={onChange}
+            placeholder={'Enter Pass Marks'}
+          />
+        </Stack>
         <Stack direction={'row'} alignItems='center'>
           <Typography
             sx={{
@@ -433,43 +462,7 @@ const AddNewLesson = () => {
             />
           </Stack>
         )}
-         <Stack direction={'row'} alignItems='center'>
-          <Typography
-            sx={{
-              minWidth: { xs: '120px', sm: '180px' },
-              fontWeight: 'bold',
-              fontSize: { xs: 12, sm: 15 }
-            }}
-          >
-            {'Mark Per Ques.'}
-          </Typography>
-          <InputField
-              name={'markPerQuestion'}
-              value={formData.markPerQuestion}
-              type={'decimal'}
-              onChange={onChange}
-              placeholder={'Enter Per Question'}
-            />
-        </Stack>
 
-        <Stack direction={'row'} alignItems='center'>
-          <Typography
-            sx={{
-              minWidth: { xs: '130px', sm: '180px' },
-              fontSize: { xs: 13, sm: 15 },
-              fontWeight: 'bold'
-            }}
-          >
-            {'Pass Marks'}
-          </Typography>
-          <InputField
-            name={'passingMarks'}
-            value={formData.passingMarks}
-            type={'text'}
-            onChange={onChange}
-            placeholder={'Enter Pass Marks'}
-          />
-        </Stack>
         {formData.questions?.map((ques, questionIndex) => (
           <Accordion key={questionIndex} defaultExpanded={true} TransitionProps={{ unmountOnExit: true }}>
             <AccordionSummary
@@ -487,7 +480,7 @@ const AddNewLesson = () => {
                   startIcon={`Q-${questionIndex + 1} : `}
                   placeholder={'Enter Question'}
 
-                  // error={ques.question}
+                // error={ques.question}
                 />
 
                 {questionIndex !== 0 ? (
@@ -515,7 +508,7 @@ const AddNewLesson = () => {
                     type={'text'}
                     onChange={e => onChange(e, questionIndex, answerIndex)}
                     placeholder={'Enter Clue'}
-                    error={errors.lessonURL}
+                    error={errors.name}
                   />
                   {answerIndex !== 0 ? (
                     <IconButton onClick={() => handleRemoveClue(questionIndex, answerIndex)}>
@@ -537,7 +530,6 @@ const AddNewLesson = () => {
                   }}
                 >
                   {'Correct Answer'}
-                  {/* {<span style={{ color: 'red' }}>*</span>} */}
                 </Typography>
                 <InputField
                   name={'correctAnswer'}
@@ -560,7 +552,7 @@ const AddNewLesson = () => {
             startIcon={<NavigateBefore />}
           />
 
-          <SaveButton text={lessonId ? 'Update Lesson Form' : 'Confirm New Lesson'} />
+          <SaveButton text={lessonId ? 'Update Quiz Form' : 'Confirm New Quiz'} />
         </Grid>
         {/* </Paper> */}
       </Form>

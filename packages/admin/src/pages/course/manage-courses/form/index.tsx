@@ -1,23 +1,18 @@
 import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Grid,
-  IconButton,
   Stack,
   Typography,
   useTheme
 } from '@mui/material'
-import { AddBox, NavigateBefore, RemoveCircle } from '@mui/icons-material'
+import { NavigateBefore } from '@mui/icons-material'
 import { toast } from 'react-toastify'
 import baseAxios from 'src/services/config'
 import { COURSE_API } from 'src/services/api-end-points'
 import { COURSE_TYPE, USER_STATUS, validateFiled } from 'src/utils/util'
 import CustomForm from 'src/layouts/components/common/CommonForm'
 import InputField from 'src/layouts/components/common/InputField'
-import RadioGroup from 'src/layouts/components/common/RadioGroup'
 import Button from 'src/layouts/components/common/Button'
 import SaveButton from 'src/layouts/components/common/SaveButton'
 import Form from 'src/layouts/components/common/Form'
@@ -82,7 +77,7 @@ const updatedNewCourse = async (updatedCourse: any, id: string) => {
 
 const AddNewCourse: NextPage = () => {
   const router = useRouter()
-  const { id, selectedItem } = router.query
+  const { id, selectedItem } = router.query;
   const theme = useTheme()
 
   const [formData, setFormData] = useState(initialData)
@@ -115,86 +110,100 @@ const AddNewCourse: NextPage = () => {
 1. handle change for all fields
 */
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string, index: number) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked, type } = e.target
-    if (fieldName && fieldName === 'requirement') {
-      const newFields = [...requirementFields]
-      newFields[index] = value
-      setRequirementFields(newFields)
-    } else if (fieldName && fieldName === 'courseDescriptions') {
-      const newFields = [...descriptionFields]
-      newFields[index] = value
-      setDescriptionFields(newFields)
-    } else if (fieldName && fieldName !== 'requirement' && type !== 'checkbox') {
-      const newFaqFields = [...(faqFields as any)]
-      newFaqFields[index][fieldName] = value
-      setFaqFields(newFaqFields)
-    } else {
-      setFormData(prevData => ({
-        ...prevData,
-        [name]: type === 'checkbox' ? checked : value
-      }))
-    }
+
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value
+    }))
+
     setErrors({
       ...errors,
       [name]: undefined
     })
   }
 
+  // const onChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string, index: number) => {
+  //   const { name, value, checked, type } = e.target
+  //   if (fieldName && fieldName === 'requirement') {
+  //     const newFields = [...requirementFields]
+  //     newFields[index] = value
+  //     setRequirementFields(newFields)
+  //   } else if (fieldName && fieldName === 'courseDescriptions') {
+  //     const newFields = [...descriptionFields]
+  //     newFields[index] = value
+  //     setDescriptionFields(newFields)
+  //   } else if (fieldName && fieldName !== 'requirement' && type !== 'checkbox') {
+  //     const newFaqFields = [...(faqFields as any)]
+  //     newFaqFields[index][fieldName] = value
+  //     setFaqFields(newFaqFields)
+  //   } else {
+  //     setFormData(prevData => ({
+  //       ...prevData,
+  //       [name]: type === 'checkbox' ? checked : value
+  //     }))
+  //   }
+  //   setErrors({
+  //     ...errors,
+  //     [name]: undefined
+  //   })
+  // }
+
   /*
   1. handle change for Checkbox
   */
 
-  const handleAddFaq = () => {
-    setFaqFields([...faqFields, { question: '', answer: '' }])
-  }
+  // const handleAddFaq = () => {
+  //   setFaqFields([...faqFields, { question: '', answer: '' }])
+  // }
 
-  const handleRemoveFaq = (index: number) => {
-    const newFaqFields = [...faqFields]
-    newFaqFields.splice(index, 1)
-    setFaqFields(newFaqFields)
-  }
+  // const handleRemoveFaq = (index: number) => {
+  //   const newFaqFields = [...faqFields]
+  //   newFaqFields.splice(index, 1)
+  //   setFaqFields(newFaqFields)
+  // }
 
-  const handleAddRequirement = () => {
-    setRequirementFields([...requirementFields, ''])
-  }
+  // const handleAddRequirement = () => {
+  //   setRequirementFields([...requirementFields, ''])
+  // }
 
-  const handleRemoveRequirement = (index: number) => {
-    const newRequirementFields = [...requirementFields]
-    newRequirementFields.splice(index, 1)
-    setRequirementFields(newRequirementFields)
-  }
+  // const handleRemoveRequirement = (index: number) => {
+  //   const newRequirementFields = [...requirementFields]
+  //   newRequirementFields.splice(index, 1)
+  //   setRequirementFields(newRequirementFields)
+  // }
 
-  const handleAddDescription = () => {
-    setDescriptionFields([...descriptionFields, ''])
-  }
+  // const handleAddDescription = () => {
+  //   setDescriptionFields([...descriptionFields, ''])
+  // }
 
-  const handleRemoveDescription = (index: number) => {
-    const newRequirementFields = [...descriptionFields]
-    newRequirementFields.splice(index, 1)
-    setDescriptionFields(newRequirementFields)
-  }
+  // const handleRemoveDescription = (index: number) => {
+  //   const newRequirementFields = [...descriptionFields]
+  //   newRequirementFields.splice(index, 1)
+  //   setDescriptionFields(newRequirementFields)
+  // }
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const newErrors = validateForm()
-    if (!newErrors) {
+    if (newErrors) {
       const payload = {
         name: formData?.name,
         description: formData?.description,
         price: Number(formData?.price),
         categoryId: formData?.category?.['value'],
         categoryName: formData?.category.label,
-        instructorId: formData?.instructor.value,
-        instructorName: formData?.instructor.label,
+        instructorId: userData?.id,
+        instructorName: userData?.fullName,
         isDiscount: formData?.isDiscount,
         isFree: formData?.isFree,
         discount: Number(formData?.discount),
         courseProvider: formData?.courseProvider.value,
         courseOverview: formData?.courseOverview,
-        multiInstructorIds: JSON.stringify(formData?.multiInstructorIds),
-        thumbnail: formData?.thumbnail || formData?.image.split(',')[1],
         status: formData?.status ? formData?.status : 'Pending',
+        courseType: COURSE_TYPE.MODEL_TEST,
+        organizationId: `${userData?.fullName}_org`,
         info: JSON.stringify({
           faqQuestions: faqFields,
           requirement: requirementFields,
@@ -203,11 +212,9 @@ const AddNewCourse: NextPage = () => {
           metaDescription: formData?.metaDescription,
           limitedMonths: formData?.limitedMonths,
           courseDescriptions: descriptionFields
-        }),
-        organizationId: `${userData.organizationId}` || 'demo',
-        courseType: COURSE_TYPE.COURSE
+        })
       }
-
+      console.log(payload)
       try {
         if (id) {
           await updatedNewCourse(payload, id as string)
@@ -217,6 +224,7 @@ const AddNewCourse: NextPage = () => {
         router.push('/course/manage-courses/list')
         toast.success(`Course ${id ? 'Updated' : 'Created'} Successfully`)
       } catch (error) {
+        console.log(error)
         toast.error('Something Went Wrong!!')
       }
     }
@@ -307,81 +315,70 @@ const AddNewCourse: NextPage = () => {
     <Grid container justifyContent='center' alignContent='center'>
       <Form onSubmit={onSubmit} heading={id ? 'Update Olympiad Form' : 'Create Olympiad Form'}>
         <>
-          <Accordion defaultExpanded={true} TransitionProps={{ unmountOnExit: true }}>
-            <AccordionSummary
+
+          <Grid container spacing={2} p={1} mr={0.2} mt={1}>
+            <CustomForm
+              inputField={inputField}
+              errors={errors}
+              setErrors={setErrors}
+              formData={formData}
+              setFormData={setFormData}
+            />
+          </Grid>
+
+          <Stack direction={'row'} alignItems='center'>
+            <Typography
               sx={{
-                fontSize: 18,
-                color: 'steelblue',
-                bgcolor: '#ededed'
+                minWidth: { xs: '120px', sm: '180px' },
+                fontWeight: 'bold',
+                fontSize: { xs: 12, sm: 15 }
               }}
             >
-              Basic Info
-            </AccordionSummary>
-            <AccordionDetails>
-              <Grid container spacing={2} p={1} mr={0.2} mt={1}>
-                <CustomForm
-                  inputField={inputField}
-                  errors={errors}
-                  setErrors={setErrors}
-                  formData={formData}
-                  setFormData={setFormData}
-                />
-              </Grid>
+              {'Is Discount'}
+            </Typography>
+            <Checkbox
+              name='isDiscount'
+              onChange={onChange}
+              checked={formData?.isDiscount}
+            />
+          </Stack>
 
-              <Stack direction={'row'} alignItems='center'>
-                <Typography
-                  sx={{
-                    minWidth: { xs: '120px', sm: '180px' },
-                    fontWeight: 'bold',
-                    fontSize: { xs: 12, sm: 15 }
-                  }}
-                >
-                  {'Is Discount'}
-                </Typography>
-                <Checkbox
-                  name='isDiscount'
-                  onChange={(e: any) => onChange(e, 'isDiscount', -1)}
-                  checked={formData?.isDiscount}
-                />
-              </Stack>
+          {formData.isDiscount === true ? (
+            <Stack direction={'row'} alignItems='center'>
+              <Typography
+                sx={{
+                  minWidth: { xs: '130px', sm: '180px' },
+                  fontSize: { xs: 12, sm: 15 },
+                  fontWeight: 'bold'
+                }}
+              >
+                {'Discount (%)'}
+              </Typography>
+              <InputField
+                name='discount'
+                value={formData?.discount}
+                type='textBox'
+                placeholder={'Enter Discount Percentage'}
+                onChange={onChange}
+              />
+            </Stack>
+          ) : undefined}
 
-              {formData.isDiscount === true ? (
-                <Stack direction={'row'} alignItems='center'>
-                  <Typography
-                    sx={{
-                      minWidth: { xs: '130px', sm: '180px' },
-                      fontSize: { xs: 12, sm: 15 },
-                      fontWeight: 'bold'
-                    }}
-                  >
-                    {'Discount (%)'}
-                  </Typography>
-                  <InputField
-                    name='discount'
-                    value={formData?.discount}
-                    type='textBox'
-                    placeholder={'Enter Discount Percentage'}
-                    onChange={(e: any) => onChange(e, 'discount', -1)}
-                  />
-                </Stack>
-              ) : undefined}
+          <Stack direction={'row'} alignItems='center'>
+            <Typography
+              sx={{
+                minWidth: { xs: '120px', sm: '180px' },
+                fontWeight: 'bold',
+                fontSize: { xs: 12, sm: 15 }
+              }}
+            >
+              {'Is Mock Test'}
+            </Typography>
+            <Checkbox name='isFree' onChange={onChange} checked={formData?.isFree} />
+          </Stack>
 
-              <Stack direction={'row'} alignItems='center'>
-                <Typography
-                  sx={{
-                    minWidth: { xs: '120px', sm: '180px' },
-                    fontWeight: 'bold',
-                    fontSize: { xs: 12, sm: 15 }
-                  }}
-                >
-                  {'Is Mock Test'}
-                </Typography>
-                <Checkbox name='isFree' onChange={(e: any) => onChange(e, 'isFree', -1)} checked={formData?.isFree} />
-              </Stack>
-            </AccordionDetails>
-          </Accordion>
 
-          <Accordion defaultExpanded={false} TransitionProps={{ unmountOnExit: true }}>
+          {/* <Accordion defaultExpanded={false} TransitionProps={{ unmountOnExit: true }}>
             <AccordionSummary
               sx={{
                 fontSize: 18,
@@ -403,7 +400,7 @@ const AddNewCourse: NextPage = () => {
                           fontWeight: 'bold'
                         }}
                       >
-                        {index === 0 ? 'Course faq' : ''}
+                        {index === 0 ? 'Olympiad faq' : ''}
                       </Typography>
                       <Stack width='100%'>
                         <InputField
@@ -464,6 +461,7 @@ const AddNewCourse: NextPage = () => {
                     </Stack>
                   ))}
                 </Grid>
+
                 <Grid item xs={12}>
                   {descriptionFields?.map((req, index) => (
                     <Stack width='100%' key={index + 1} direction='row' alignItems='center'>
@@ -540,49 +538,9 @@ const AddNewCourse: NextPage = () => {
                     </Stack>
                   </Grid>
                 ) : undefined}
-                <Grid item xs={12}>
-                  <Stack direction={'row'} alignItems='center'>
-                    <Typography
-                      sx={{
-                        minWidth: { xs: '130px', sm: '180px' },
-                        fontSize: { xs: 12, sm: 15 },
-                        fontWeight: 'bold'
-                      }}
-                    >
-                      {'Meta keywords'}
-                    </Typography>
-                    <InputField
-                      name='metakeywords'
-                      value={formData?.metakeywords}
-                      type='textBox'
-                      placeholder={'Enter Meta keywords'}
-                      onChange={(e: any) => onChange(e, 'metakeywords', -1)}
-                    />
-                  </Stack>
-                </Grid>
-                <Grid item xs={12}>
-                  <Stack direction={'row'} alignItems='center'>
-                    <Typography
-                      sx={{
-                        minWidth: { xs: '130px', sm: '180px' },
-                        fontSize: { xs: 12, sm: 15 },
-                        fontWeight: 'bold'
-                      }}
-                    >
-                      {'Meta description'}
-                    </Typography>
-                    <InputField
-                      name='metaDescription'
-                      value={formData?.metaDescription}
-                      type='textBox'
-                      placeholder={'Enter Meta Description'}
-                      onChange={(e: any) => onChange(e, 'metaDescription', -1)}
-                    />
-                  </Stack>
-                </Grid>
               </Grid>
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
         </>
         <Grid container justifyContent='center' gap={2} alignItems='center'>
           <Button
@@ -593,7 +551,7 @@ const AddNewCourse: NextPage = () => {
             startIcon={<NavigateBefore />}
           />
 
-          <SaveButton text={id ? 'Update New Account' : 'Confirm New Account'} />
+          <SaveButton text={id ? 'Update Upadate Olympiad' : 'Confirm New Olympiad'} />
         </Grid>
       </Form>
     </Grid>

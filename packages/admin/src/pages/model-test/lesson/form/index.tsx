@@ -233,7 +233,7 @@ const AddNewLesson = () => {
 
   return (
     <BaseLayout
-      heading='Add New Lesson'
+      heading='Add New Quiz'
     >
       <Form onSubmit={onSubmit}>
         {/* <Paper sx={{ p: 2 }}> */}

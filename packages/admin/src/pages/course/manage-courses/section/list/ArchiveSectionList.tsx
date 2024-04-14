@@ -127,7 +127,7 @@ function ArchiveSectionList() {
             <CustomAutocomplete
               onChange={e => handleFilterChange(e, 'course')}
               options={searchDdl?.course || []}
-              placeholder='Select Course'
+              placeholder='Select Olympiad'
               value={searchValue?.course}
             />
           </Grid>
@@ -139,7 +139,7 @@ function ArchiveSectionList() {
                   id: item._id,
                   listItem: [
                     {
-                      label: 'Course Name',
+                      label: 'Olympiad Name',
                       value: item.courseName
                     },
                     {

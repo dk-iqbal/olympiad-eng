@@ -179,8 +179,8 @@ const CourseEnrolment = () => {
     },
     {
       name: 'course',
-      label: 'Courses',
-      placeholder: 'Search Course Name',
+      label: 'Olympiad',
+      placeholder: 'Search Olympiad Name',
       inputMode: 'text',
       fieldType: 'select',
       required: true,
@@ -189,8 +189,8 @@ const CourseEnrolment = () => {
     },
     {
       name: 'amount',
-      label: 'Courses Amount',
-      placeholder: 'Enter Course Amount',
+      label: 'Olympiad Amount',
+      placeholder: 'Enter Olympiad Amount',
       inputMode: 'numeric',
       fieldType: 'text',
       required: true
@@ -334,7 +334,7 @@ const CourseEnrolment = () => {
           <CircularProgress color='primary' size={40} variant='indeterminate' />
         </Box>
       ) : (
-        <Form onSubmit={onSubmit} heading={id ? 'Update Course Enrollment Form' : 'Create Course Enrollment Form'}>
+        <Form onSubmit={onSubmit} heading={id ? 'Update Olympiad Enrollment Form' : 'Create Olympiad Enrollment Form'}>
           <CommonForm
             inputField={inputField}
             errors={errors}
@@ -350,7 +350,7 @@ const CourseEnrolment = () => {
               sx={{ height: '38px' }}
               onClick={() => router.back()}
             />
-            <SaveButton loading={loading} text={id ? 'Update Course Enrollment' : 'Add Course Enrollment'} />
+            <SaveButton loading={loading} text={id ? 'Update Olympiad Enrollment' : 'Add Olympiad Enrollment'} />
           </Grid>
         </Form>
       )}

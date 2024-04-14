@@ -78,7 +78,7 @@ const ApprovedComments: React.FC = () => {
     <>
       <Paper sx={{ mt: { xs: 1, sm: 2 } }}>
         <Grid container spacing={1} p={1} justifyContent={'center'} alignItems={'center'}>
-          {/* Course Status */}
+          {/* Olympiad Status */}
           <Grid item xs={12} md={5}>
             <CustomAutocomplete
               onChange={e => {
@@ -90,7 +90,7 @@ const ApprovedComments: React.FC = () => {
               }}
               options={courseDdl || []}
               value={selectedCourse}
-              placeholder='Select Course/Model Test'
+              placeholder='Select Olympiad'
             />
           </Grid>
 
@@ -141,7 +141,7 @@ const ApprovedComments: React.FC = () => {
                   status: comment.status ? 'Approved' : 'Pending',
                   details: [
                     { label: 'Comments', value: comment.feedbackText },
-                    { label: 'Course', value: comment.courseName }
+                    { label: 'Olympiad', value: comment.courseName }
                   ]
                 }
                 const actions = [{ icon: <Autorenew color='primary' />, name: 'Pending' }]
